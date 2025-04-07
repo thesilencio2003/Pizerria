@@ -38,6 +38,24 @@
                     @endforeach
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="client_id" class="form-label">Cliente</label>
+                <select class="form-select" id="client_id" name="client_id">
+                    <option value="">Seleccionar Cliente</option>
+                    @foreach ($clients as $client)
+                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="employee_id" class="form-label">Empleado</label>
+                <select class="form-select" id="employee_id" name="employee_id">
+                    <option value="">Seleccionar Empleado</option>
+                    @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="mt-3">
                 <button type="submit" class="btn btn-primary">Guardar</button>

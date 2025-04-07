@@ -31,6 +31,8 @@
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Rol</th>
+                                <th scope="col">Employee ID</th>
+                                <th scope="col">Client ID</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                             </tr>
@@ -42,7 +44,18 @@
                               <td>{{ $user->name }}</td>
                               <td>{{ $user->email }}</td>
                               <td>{{ $user->role }}</td>
+                              <td>{{ $user->employee_id }}</td>
+                              <td>{{ $user->client_id }}</td>
                               <td>
+                                @if (isset($user) && isset($user->id))
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block">
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            @else
+                                <p>User ID is not available</p>
+                            @endif
                               </td>
                           </tr>
                           @endforeach

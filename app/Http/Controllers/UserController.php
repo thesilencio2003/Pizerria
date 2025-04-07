@@ -14,9 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-       
+        $users = User::leftJoin('employees', 'users.id', '=', 'employees.user_id')
+        ->leftJoin('clients', 'users.id', '=', 'clients.user_id')
+        ->select('users.*', 'employees.id as employee_relation_id', 'clients.id as client_relation_id')
+        ->get();
 
-        $users = DB::table('users')->get();
         return view('user.index', ['users' => $users]);
     }
 
@@ -31,7 +33,14 @@ class UserController extends Controller
             (object) ['role' => 'empleado'],
         ];
 
-        return view('user.new', ['roles' => $roles]);
+        $clients = DB::table('clients')->get();
+        $employees = DB::table('employees')->get();
+
+        return view('user.new', [
+            'roles' => $roles,
+            'clients' => $clients,
+            'employees' => $employees,
+        ]);
     }
 
     /**
@@ -44,16 +53,24 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:cliente,empleado',
+            'client_id' => 'nullable|exists:clients,id',
+            'employee_id' => 'nullable|exists:employees,id',
         ]);
 
-        DB::table('users')->insert([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->client_id = $request->client_id;
+        $user->employee_id = $request->employee_id;
+        $user->save();
 
-        $users = DB::table('users')->get();
+        $users = User::leftJoin('employees', 'users.id', '=', 'employees.user_id')
+            ->leftJoin('clients', 'users.id', '=', 'clients.user_id')
+            ->select('users.*', 'employees.id as employee_relation_id', 'clients.id as client_relation_id')
+            ->get();
+
         return view('user.index', ['users' => $users]);
     }
 
@@ -86,6 +103,17 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('employees')->where('user_id', $id)->delete();
+        DB::table('clients')->where('user_id', $id)->delete();
+
+        $user = User::find($id);
+        $user->delete();
+
+        $users = User::leftJoin('employees', 'users.id', '=', 'employees.user_id')
+            ->leftJoin('clients', 'users.id', '=', 'clients.user_id')
+            ->select('users.*', 'employees.id as employee_relation_id', 'clients.id as client_relation_id')
+            ->get();
+
+        return view('user.index', ['users' => $users]);
     }
 }

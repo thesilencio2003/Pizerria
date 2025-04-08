@@ -47,15 +47,12 @@
                               <td>{{ $user->employee_id }}</td>
                               <td>{{ $user->client_id }}</td>
                               <td>
-                                @if (isset($user) && isset($user->id))
+                                <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary">Edit</a>
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger" type="submit">Delete</button>
                                 </form>
-                            @else
-                                <p>User ID is not available</p>
-                            @endif
                               </td>
                           </tr>
                           @endforeach

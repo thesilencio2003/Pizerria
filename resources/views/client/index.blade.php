@@ -45,7 +45,11 @@
                                         <td>{{ $client->address ?? 'N/A' }}</td>
                                         <td>{{ $client->phone ?? 'N/A' }}</td>
                                         <td>
-                                           
+                                              <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display: inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Are you sure you want to delete this client?') }}')">{{ __('Delete') }}</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty

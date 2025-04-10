@@ -90,6 +90,18 @@ class ClientsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = DB::table('clients')->where('id', $id)->first();
+
+    if (!$client) {
+        return redirect()->route('clients.index')->withErrors(['error' => 'Cliente no encontrado.']);
+    }
+
+    try {
+        DB::table('clients')->where('id', $id)->delete();
+
+        return redirect()->route('clients.index')->with('success', 'Cliente eliminado exitosamente.');
+    } catch (\Exception $e) {
+        return redirect()->route('clients.index')->withErrors(['error' => 'Error al eliminar el cliente: ' . $e->getMessage()]);
+    }
     }
 }

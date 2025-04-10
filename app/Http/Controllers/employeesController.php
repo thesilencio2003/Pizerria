@@ -22,7 +22,8 @@ class employeesController extends Controller
      */
     public function create()
     {
-        //
+        $users = DB::table('users')->get();
+        return view('employee.new', compact('users'));
     }
 
     /**
@@ -30,7 +31,29 @@ class employeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'position' => 'required|in:cajero,administrador,cocinero,mensajero',
+            'identification_number' => 'required|string|max:20',
+            'salary' => 'required|numeric|min:0',
+            'hire_date' => 'required|date',
+        ]);
+
+        try {
+            DB::table('employees')->insert([
+                'user_id' => $request->user_id,
+                'position' => $request->position,
+                'identification_number' => $request->identification_number,
+                'salary' => $request->salary,
+                'hire_date' => $request->hire_date,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->route('employees.index')->with('success', 'Empleado creado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('employees.index')->withErrors(['error' => 'Error al crear el empleado: ' . $e->getMessage()]);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
+ use App\Http\Controllers\ClientsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::put( '/users/{id}', [UserController::class,'update'])->name('users.update');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 
-    
+    Route::get('/clients', [ClientsController::class,'index'])->name('clients.index');
+    Route::get('/clients', [ClientsController::class,'store'])->name('clients.store');
+    Route::get('/clients/create', [ClientsController::class,'store'])->name('clients.create');
+
 
 });
 

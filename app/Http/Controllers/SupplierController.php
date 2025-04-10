@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\suppliers;
 use Illuminate\Support\Facades\DB;
 
+
 class SuppliersController extends Controller
 {
     public function index()

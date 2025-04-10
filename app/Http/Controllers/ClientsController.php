@@ -74,7 +74,15 @@ class ClientsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $client = DB::table('clients')->where('id', $id)->first();
+
+        if (!$client) {
+            return redirect()->route('clients.index')->withErrors(['error' => 'Cliente no encontrado.']);
+        }
+
+        $users = DB::table('users')->get();
+
+        return view('client.edit', compact('client', 'users'));
     }
 
     /**
@@ -82,7 +90,30 @@ class ClientsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+        ]);
+    
+        $client = DB::table('clients')->where('id', $id)->first();
+    
+        if (!$client) {
+            return redirect()->route('clients.index')->withErrors(['error' => 'Cliente no encontrado.']);
+        }
+    
+        try {
+            DB::table('clients')->where('id', $id)->update([
+                'user_id' => $request->user_id,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'updated_at' => now(),
+            ]);
+    
+            return redirect()->route('clients.index')->with('success', 'Cliente actualizado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('clients.index')->withErrors(['error' => 'Error al actualizar el cliente: ' . $e->getMessage()]);
+        }
     }
 
     /**

@@ -36,8 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 
     Route::get('/clients', [ClientsController::class,'index'])->name('clients.index');
-    Route::get('/clients', [ClientsController::class,'store'])->name('clients.store');
-    Route::get('/clients/create', [ClientsController::class,'store'])->name('clients.create');
+
+    Route::post('/clients', [ClientsController::class,'store'])->name('clients.store');
+    Route::get('/clients/create', [ClientsController::class,'create'])->name('clients.create');
 
 
 });

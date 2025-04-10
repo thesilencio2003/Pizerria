@@ -29,7 +29,7 @@ class ClientsController extends Controller
     public function create()
     {
         $users = DB::table('users')->get();
-        return view('clients.new', compact('users'));
+        return view('client.new', compact('users'));
     }
 
     /**
@@ -43,15 +43,21 @@ class ClientsController extends Controller
             'phone' => 'nullable|string|max:20',
         ]);
     
-        DB::table('clients')->insert([
-            'user_id' => $request->user_id,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        try {
+            DB::table('clients')->insert([
+                'user_id' => $request->user_id,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+    
+            return redirect()->route('clients.index')->with('success', 'Cliente creado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Error al crear el cliente: ' . $e->getMessage()]);
+        }
 
-        return view('clients.index', compact('users'));
+        
 
     }
 

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\SuppliersController;
+use App\Http\Controllers\RawMaterialController;
+
 
 /* Web Routes */
 
@@ -26,6 +28,9 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de suppliers (proveedores)
     Route::resource('suppliers', SuppliersController::class);
+
+    // Rutas de raw_materials (Materiales)
+    Route::resource('raw_materials', RawMaterialController::class); 
 });
 
 require __DIR__.'/auth.php';

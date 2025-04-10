@@ -46,8 +46,11 @@
                             <td>{{ $employee->identification_number }}</td>
                             <td>{{ $employee->salary }}</td>
                             <td>{{ $employee->hire_date }}</td>
-                        
-                              </td>
+                            </td>
+                            <td>
+                              <a href="{{ route('employees.edit', ['id' => $employee->id]) }}" class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+                            </td>
+
                           </tr>
                           @endforeach
                         </tbody>

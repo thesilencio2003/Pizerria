@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees', [employeesController::class,'index'])->name('employees.index');
     Route::get('/employees/create', [employeesController::class,'create'])->name('employees.create');
     Route::post('/employees', [employeesController::class,'store'])->name('employees.store');
+    Route::put( '/employees/{id}', [employeesController::class,'update'])->name('employees.update');
+    Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
 
 });
 

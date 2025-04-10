@@ -69,7 +69,14 @@ class employeesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $employee = DB::table('employees')->where('id', $id)->first();
+
+        if (!$employee) {
+            return redirect()->route('employees.index')->withErrors(['error' => 'Empleado no encontrado.']);
+        }
+
+        $users = DB::table('users')->get();
+        return view('employee.edit', compact('employee', 'users'));
     }
 
     /**
@@ -77,7 +84,34 @@ class employeesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'position' => 'required|in:cajero,administrador,cocinero,mensajero',
+            'identification_number' => 'required|string|max:20',
+            'salary' => 'required|numeric|min:0',
+            'hire_date' => 'required|date',
+        ]);
+
+        $employee = DB::table('employees')->where('id', $id)->first();
+
+        if (!$employee) {
+            return redirect()->route('employees.index')->withErrors(['error' => 'Empleado no encontrado.']);
+        }
+
+        try {
+            DB::table('employees')->where('id', $id)->update([
+                'user_id' => $request->user_id,
+                'position' => $request->position,
+                'identification_number' => $request->identification_number,
+                'salary' => $request->salary,
+                'hire_date' => $request->hire_date,
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->route('employees.index')->with('success', 'Empleado actualizado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('employees.index')->withErrors(['error' => 'Error al actualizar el empleado: ' . $e->getMessage()]);
+        }
     }
 
     /**

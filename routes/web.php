@@ -52,7 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
     Route::get('/purchases', [purchasesController::class,'index'])->name('purchases.index');
-
+    Route::get('/purchases/create', [purchasesController::class,'create'])->name('purchases.create');
+    Route::post('/purchases', [purchasesController::class,'store'])->name('purchases.store');
 
 
 });

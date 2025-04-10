@@ -22,7 +22,9 @@ class purchasesController extends Controller
      */
     public function create()
     {
-        //
+        $suppliers = DB::table('suppliers')->get();
+        $rawMaterials = DB::table('raw_materials')->get();
+        return view('purchases.new', compact('suppliers', 'rawMaterials'));
     }
 
     /**
@@ -30,7 +32,29 @@ class purchasesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'supplier_id' => 'required|exists:suppliers,id',
+            'raw_material_id' => 'required|exists:raw_materials,id',
+            'quantity' => 'required|numeric|min:0',
+            'purchase_price' => 'required|numeric|min:0',
+            'purchase_date' => 'required|date',
+        ]);
+
+        try {
+            DB::table('purchases')->insert([
+                'supplier_id' => $request->supplier_id,
+                'raw_material_id' => $request->raw_material_id,
+                'quantity' => $request->quantity,
+                'purchase_price' => $request->purchase_price,
+                'purchase_date' => $request->purchase_date,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->route('purchases.index')->with('success', 'Compra creada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('purchases.index')->withErrors(['error' => 'Error al crear la compra: ' . $e->getMessage()]);
+        }
     }
 
     /**

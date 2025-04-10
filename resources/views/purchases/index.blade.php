@@ -21,6 +21,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
 
+                        <a href="{{ route('purchases.create') }}" class="btn btn-success mb-4">{{ __('Create New purchases') }}</a>
 
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>

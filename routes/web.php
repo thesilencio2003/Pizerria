@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchases', [purchasesController::class,'index'])->name('purchases.index');
     Route::get('/purchases/create', [purchasesController::class,'create'])->name('purchases.create');
     Route::post('/purchases', [purchasesController::class,'store'])->name('purchases.store');
-
+    Route::put( '/purchases/{id}', [purchasesController::class,'update'])->name('purchases.update');
+    Route::get('/purchases/{id}/edit', [purchasesController::class, 'edit'])->name('purchases.edit');
 
 });
 

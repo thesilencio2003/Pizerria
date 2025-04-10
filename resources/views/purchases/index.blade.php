@@ -51,6 +51,9 @@
                                         <td>
                                           
                                         </td>
+                                        <td>
+                                            <a href="{{ route('purchases.edit', ['id' => $purchase->id]) }}" class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

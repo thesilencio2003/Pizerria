@@ -119,6 +119,14 @@ class employeesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = DB::table('employees')->where('id', $id)->first();
+
+    try {
+        DB::table('employees')->where('id', $id)->delete();
+
+        return redirect()->route('employees.index')->with('success', 'Empleado eliminado exitosamente.');
+    } catch (\Exception $e) {
+        return redirect()->route('employees.index')->withErrors(['error' => 'Error al eliminar el empleado: ' . $e->getMessage()]);
+    }
     }
 }

@@ -49,6 +49,11 @@
                             </td>
                             <td>
                               <a href="{{ route('employees.edit', ['id' => $employee->id]) }}" class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+                              <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" style="display: inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Are you sure you want to delete this employee?') }}')">{{ __('Delete') }}</button>
+                            </form>
                             </td>
 
                           </tr>

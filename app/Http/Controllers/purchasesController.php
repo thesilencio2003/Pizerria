@@ -126,6 +126,18 @@ class purchasesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $purchase = DB::table('purchases')->where('id', $id)->first();
+
+        if (!$purchase) {
+            return redirect()->route('purchases.index')->withErrors(['error' => 'Compra no encontrada.']);
+        }
+
+        try {
+            DB::table('purchases')->where('id', $id)->delete();
+
+            return redirect()->route('purchases.index')->with(' success', 'Compra eliminada exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('purchases.index')->withErrors(['error' => 'Error al eliminar la compra: ' . $e->getMessage()]);
+        }
     }
 }

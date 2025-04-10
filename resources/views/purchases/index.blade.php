@@ -53,6 +53,11 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('purchases.edit', ['id' => $purchase->id]) }}" class="btn btn-primary btn-sm">{{ __('Edit') }}</a>
+                                            <form action="{{ route('purchases.destroy', $purchase->id) }}" method="POST" style="display: inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta compra?')">Eliminar</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

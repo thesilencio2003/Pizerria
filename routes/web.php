@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
+ use App\Http\Controllers\employeesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,12 +37,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 
     Route::get('/clients', [ClientsController::class,'index'])->name('clients.index');
-
     Route::post('/clients', [ClientsController::class,'store'])->name('clients.store');
     Route::get('/clients/create', [ClientsController::class,'create'])->name('clients.create');
     Route::delete('/clients/{id}', [ClientsController::class, 'destroy'])->name('clients.destroy');
     Route::put( '/clients/{id}', [ClientsController::class,'update'])->name('clients.update');
     Route::get('/clients/{id}/edit', [ClientsController::class, 'edit'])->name('clients.edit');
+
+    Route::get('/employees', [employeesController::class,'index'])->name('employees.index');
+
 
 });
 

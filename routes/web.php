@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de raw_materials (Materiales)
     Route::resource('raw_materials', RawMaterialController::class); 
+
+    // Rutas de Purchases 
+    Route::resource('purchases', PurchaseController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -34,6 +34,9 @@ Route::middleware('auth')->group(function () {
 
     // Rutas de Purchases 
     Route::resource('purchases', PurchaseController::class);
+
+    // Rutas de pizza_raw_materials 
+    Route::resource('pizza_raw_materials', PizzaRawMaterialController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -16,6 +16,39 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
+                        {{ __('purchases') }}
+                    </x-nav-link>
+                </div>
+
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.index')">
+                        {{ __('branches') }}
+                    </x-nav-link>
+                </div>
+
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.index')">
+                        {{ __('suppliers') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('raw_materials.index')" :active="request()->routeIs('raw_materials.index')">
+                        {{ __('raw_materials') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pizza_raw_materials.index')" :active="request()->routeIs('pizza_raw_materials.index')">
+                        {{ __('pizza_raw_materials') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->

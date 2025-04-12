@@ -20,7 +20,7 @@
         <div class="container mt-5">
             <div class="card-style p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <a href="{{ route('pizza_raw_material.create') }}" class="btn btn-danger btn-sm ms-auto">
+                    <a href="{{ route('pizza_raw_materials.create') }}" class="btn btn-danger btn-sm ms-auto">
                         <i class="bi bi-plus-lg me-1"></i>Agregar Ingrediente
                     </a>
                 </div>
@@ -45,12 +45,12 @@
                                 <td>{{ $ingredient->quantity }}</td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="{{ route('pizza_raw_material.edit', ['pizza_raw_material' => $ingredient->id]) }}"
+                                        <a href="{{ route('pizza_raw_materials.edit', ['pizza_raw_materials' => $ingredient->id]) }}"
                                             class="btn btn-outline-dark btn-icon" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <form action="{{ route('pizza_raw_material.destroy', ['pizza_raw_material' => $ingredient->id]) }}"
+                                        <form action="{{ route('pizza_raw_materials.destroy', ['pizza_raw_materials' => $ingredient->id]) }}"
                                             method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este ingrediente?');">
                                             @csrf
                                             @method('delete')

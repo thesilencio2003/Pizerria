@@ -14,7 +14,7 @@
         <div class="card shadow-sm rounded p-4">
             <h1 class="text-danger mb-4">Agregar Materia Prima a Pizza</h1>
 
-            <form method="POST" action="{{ route('pizza_raw_material.store') }}">
+            <form method="POST" action="{{ route('pizza_raw_materials.store') }}">
                 @csrf
 
                 <div class="mb-3">
@@ -52,7 +52,7 @@
 
                 <div class="d-flex justify-content-between mt-4">
                     <button type="submit" class="btn btn-danger">Guardar</button>
-                    <a href="{{ route('pizza_raw_material.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <a href="{{ route('pizza_raw_materials.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

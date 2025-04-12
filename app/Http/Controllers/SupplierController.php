@@ -7,7 +7,7 @@ use App\Models\suppliers;
 use Illuminate\Support\Facades\DB;
 
 
-class SuppliersController extends Controller
+class SupplierController extends Controller
 {
     public function index()
     {

@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BranchController;
-use App\Http\Controllers\SuppliersController;
-use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\raw_materialsController;
 
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PizzaRawMaterialController;
 
 /* Web Routes */
 
@@ -27,10 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('branches', BranchController::class);
 
     // Rutas de suppliers (proveedores)
-    Route::resource('suppliers', SuppliersController::class);
+    Route::resource('suppliers', SupplierController::class);
 
     // Rutas de raw_materials (Materiales)
-    Route::resource('raw_materials', RawMaterialController::class); 
+    Route::resource('raw_materials', raw_materialsController::class); 
 
     // Rutas de Purchases 
     Route::resource('purchases', PurchaseController::class);

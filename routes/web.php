@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
+ use App\Http\Controllers\Extra_IngredientsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::put( '/employees/{id}', [employeesController::class,'update'])->name('employees.update');
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
+
+    Route::get('/extra-ingredients', [Extra_IngredientsController::class,'index'])->name('Extra_Ingredients.index');
 
 
 });

@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
- use App\Http\Controllers\purchasesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,12 +50,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
-    Route::get('/purchases', [purchasesController::class,'index'])->name('purchases.index');
-    Route::get('/purchases/create', [purchasesController::class,'create'])->name('purchases.create');
-    Route::post('/purchases', [purchasesController::class,'store'])->name('purchases.store');
-    Route::put( '/purchases/{id}', [purchasesController::class,'update'])->name('purchases.update');
-    Route::get('/purchases/{id}/edit', [purchasesController::class, 'edit'])->name('purchases.edit');
-    Route::delete('/purchases/{id}', [purchasesController::class, 'destroy'])->name('purchases.destroy');
 
 });
 

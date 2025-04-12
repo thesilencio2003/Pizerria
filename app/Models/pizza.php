@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class pizza extends Model
 {
     use HasFactory;
+    
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 }

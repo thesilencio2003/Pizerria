@@ -10,5 +10,10 @@ class pizza extends Model
     use HasFactory;
     
     protected $primaryKey = 'id';
+    protected $table = 'pizzas';
     public $timestamps = true;
+    
+    public function pizzas() {
+        return $this->belongsToMany(Pizza::class);
+    }
 }

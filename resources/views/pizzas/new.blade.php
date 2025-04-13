@@ -14,7 +14,8 @@
         @csrf
 
         <div class="mb-3">
-            <label for="name" class="form-label">Nombre de la Pizza</label>
+            <h1>nombre de pizza</h1>
+            <label for="name" class="form-label">Nombre </label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
 

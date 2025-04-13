@@ -30,7 +30,6 @@
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Ingredientes</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>

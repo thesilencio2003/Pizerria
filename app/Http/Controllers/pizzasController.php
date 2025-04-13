@@ -20,7 +20,7 @@ class pizzasController extends Controller
      */
     public function create()
     {
-        return view('pizzaz.create');
+        return view('pizzas.create');
     }
 
     /**
@@ -28,8 +28,13 @@ class pizzasController extends Controller
      */
     public function store(Request $request)
     {
-        Pizza::create($request->all());
-        return redirect()->route('pizzas.index')->with('success', 'Pizza creada correctamente');
+        $pizzas = pizza::find($id);
+        $pizzas->name = $request->input('name');
+        $pizzas->save();
+
+        return view('pizzas.index', [
+            'pizzas' => pizza::all()
+        ]);
     }
 
     /**
@@ -47,7 +52,7 @@ class pizzasController extends Controller
     {
         $pizzas = pizza::find($id);
 
-        return view('pizzas.index', [
+        return view('pizzas.edit', [
             'pizzas' => $pizzas
         ]);  
 
@@ -58,12 +63,25 @@ class pizzasController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $pizzas = pizza::find($id);
+        $pizzas->name = $request->input('name');
+        $pizzas->save();
+
+        return view('pizzas.index', [
+            'pizzas' => pizza::all()
+        ]);
     }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-      
+        $pizzas = pizza::find($id);
+        $pizzas->delete();
+
+        return view('pizzas.index', [
+            'pizzas' => pizza::all()
+        ]);
+
     }
 }

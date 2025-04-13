@@ -47,7 +47,15 @@
                   <td>#{{ $item->order->id }}</td>
                   <td>{{ $item->extraIngredient->name }}</td>
                   <td>{{ $item->quantity }}</td>
-                  
+
+                 <td>
+                    
+                    <form action="{{ route('order_extra_ingredient.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                  </td>
                 </tr>
               @endforeach
               

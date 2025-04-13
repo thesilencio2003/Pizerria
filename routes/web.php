@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredient.index');
     Route::post('/', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredient.store');
     Route::get('/new', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredient.create');
+    Route::delete('/{id}', [OrderExtraIngredientController::class, 'destroy'])->name('order_extra_ingredient.destroy');
+
+
 });
 
 

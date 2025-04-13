@@ -74,6 +74,10 @@ class OrderExtraIngredientController extends Controller
      */
     public function destroy(string $id)
     {
-    
+        $item = OrderExtraIngredient::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('order_extra_ingredient.index')->with('success', 'Registro eliminado correctamente.');
+  
     }
 }

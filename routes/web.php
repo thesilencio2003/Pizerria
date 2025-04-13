@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
-
+    Route::get('/employees', [pizzasController::class,'index'])->name('pizzas.index');
 });
 
 

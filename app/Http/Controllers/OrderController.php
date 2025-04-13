@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('user')->get(); 
-        return view('orders.index', compact('orders'));
+        return view('orders.create', compact('users'));
     }
 
     /**
@@ -22,7 +22,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('orders.create', compact('users'));
     }
 
     /**
@@ -30,7 +31,18 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'status' => 'required|string|max:255',
+            'total_price' => 'required|numeric|min:0',
+        ]);
+
+       
+        Order::create($validated);
+
+        
+        return redirect()->route('orders.index')->with('success', 'Orden creada con éxito.');
+ 
     }
 
     /**

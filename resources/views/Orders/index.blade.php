@@ -8,56 +8,50 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Listado de Órdenes</title>
+    <title>Listado de Pedidos</title>
   </head>
   <body>
     <x-app-layout>
       <x-slot name="header">
-          <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              {{ __('Orders') }}
-          </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Orders') }}
+        </h2>
       </x-slot>
       <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Precio Total</th>
-                                <th scope="col">Fecha de Creación</th>
-                                <th scope="col">Fecha de Actualización</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($orders as $order)
+                <a href="{{ route('orders.create') }}" class="btn btn-success">Agregar Pedido</a>
+                  <table class="table mt-3">
+                      <thead>
                           <tr>
-                              <th scope="row">{{ $order->id }}</th>
-                              <td>{{ $order->user->name }}</td>
-                              <td>{{ ucfirst($order->status) }}</td>
-                              <td>{{ $order->total_price }}</td>
-                              <td>{{ $order->created_at->format('Y-m-d H:i') }}</td>
-                              <td>{{ $order->updated_at->format('Y-m-d H:i') }}</td>
-                              
+                              <th scope="col">ID</th>
+                              <th scope="col">Usuario</th>
+                              <th scope="col">Precio Total</th>
+                              <th scope="col">Fecha de Creación</th>
+                              <th scope="col">Acciones</th>
                           </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($orders as $order)
+                              <tr>
+                                  <th scope="row">{{ $order->id }}</th>
+                                  <td>{{ $order->user->name }}</td>
+                                  <td>{{ $order->total_price }}</td>
+                                  <td>{{ $order->created_at }}</td>
+                                  
+                              </tr>
                           @endforeach
-                        </tbody>
-                    </table>
+                      </tbody>
+                  </table>
                 </div>
             </div>
         </div>
-    </div>
-  </x-app-layout>
+      </div>
+    </x-app-layout>
 
     <!-- Optional JavaScript; choose one of the two! -->
-
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
   </body>
 </html>
- 

@@ -45,7 +45,8 @@ class pizzasController extends Controller
      */
     public function edit(string $id)
     {
-    
+        return view('pizzas.edit', compact('pizza'));
+
     }
 
     /**
@@ -53,7 +54,6 @@ class pizzasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-       
     }
     /**
      * Remove the specified resource from storage.

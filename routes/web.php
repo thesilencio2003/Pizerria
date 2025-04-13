@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
+ use App\Http\Controllers\pizzasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
-    Route::get('/employees', [pizzasController::class,'index'])->name('pizzas.index');
+    Route::get('/pizza', [pizzasController::class,'index'])->name('pizzas.index');
 });
 
 

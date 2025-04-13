@@ -71,6 +71,10 @@ class Extra_IngredientsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $extra_ingredient = ExtraIngredient::findOrFail($id);
+        $extra_ingredient->delete();
+
+        return redirect()->route('extra_ingredients.index')->with('success', 'Ingrediente extra eliminado correctamente.');
+
     }
 }

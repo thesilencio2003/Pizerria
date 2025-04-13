@@ -52,8 +52,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
     Route::get('/extra_ingredients', [Extra_IngredientsController::class,'index'])->name('extra_ingredients.index');
-    Route::post('/extra_ingredients', [ExtraIngredientController::class, 'store'])->name('extra_ingredients.store');
+    Route::post('/extra_ingredients', [Extra_IngredientsController::class, 'store'])->name('extra_ingredients.store');
     Route::get('/extra_ingredients/create', [Extra_IngredientsController::class,'create'])->name('extra_ingredients.create');
+    Route::delete('/extra_ingredients/{id}', [Extra_IngredientsController::class, 'destroy'])->name('extra_ingredients.destroy');
 
 
 });

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\Extra_IngredientsController;
  use App\Http\Controllers\OrderController;
  use App\Http\Controllers\OrderExtraIngredientController;
+ use App\Http\Controllers\OrderPizzaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,8 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredient.store');
     Route::get('/new', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredient.create');
     Route::delete('/{id}', [OrderExtraIngredientController::class, 'destroy'])->name('order_extra_ingredient.destroy');
+    Route::put('/{id}', [OrderExtraIngredientController::class, 'update'])->name('order_extra_ingredient.update');
+    Route::get('/{id}/edit', [OrderExtraIngredientController::class, 'edit'])->name('order_extra_ingredient.edit');
 
-
+    Route::get('/order_pizza', [OrderController::class, 'index'])->name('order_pizza.index');
 });
 
 

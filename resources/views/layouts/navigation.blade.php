@@ -49,7 +49,13 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('order_extra_ingredient.index')" :active="request()->routeIs('order_extra_ingredient.index')">
-                    {{ __('Order Extra Ingredient') }}
+                    {{ __('Order Extra') }}
+                  </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                   <x-nav-link :href="route('order_pizza.index')" :active="request()->routeIs('order_pizza.index')">
+                    {{ __('Order Pizza') }}
                   </x-nav-link>
                 </div>
 

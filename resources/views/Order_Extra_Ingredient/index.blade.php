@@ -49,7 +49,7 @@
                   <td>{{ $item->quantity }}</td>
 
                  <td>
-                    
+                 <a href="{{ route('order_extra_ingredient.edit', ['id' => $item->id]) }}" class="btn btn-primary btn-sm">Editar</a>
                     <form action="{{ route('order_extra_ingredient.destroy', ['id' => $item->id]) }}" method="POST" style="display: inline-block;">
                       @csrf
                       @method('DELETE')

@@ -58,7 +58,11 @@ class OrderExtraIngredientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = OrderExtraIngredient::findOrFail($id);
+        $orders = Order::all();
+        $extraIngredients = ExtraIngredient::all();
+
+        return view('order_extra_ingredient.edit', compact('item', 'orders', 'extraIngredients'));
     }
 
     /**
@@ -66,7 +70,17 @@ class OrderExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'extra_ingredient_id' => 'required|exists:extra_ingredients,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $item = OrderExtraIngredient::findOrFail($id);
+        $item->update($request->all());
+
+        return redirect()->route('order_extra_ingredient.index')->with('success', 'Registro actualizado correctamente.');
+ 
     }
 
     /**

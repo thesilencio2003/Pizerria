@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ExtraIngredient;
 
 class Extra_IngredientsController extends Controller
 {
@@ -12,7 +13,9 @@ class Extra_IngredientsController extends Controller
      */
     public function index()
     {
-        //
+        $extra_ingredients = ExtraIngredient::all();
+        return view('extra_ingredients.index', compact('extra_ingredients'));
+
     }
 
     /**
@@ -20,7 +23,7 @@ class Extra_IngredientsController extends Controller
      */
     public function create()
     {
-        //
+        return view('extra_ingredients.new');
     }
 
     /**
@@ -28,7 +31,15 @@ class Extra_IngredientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|between:0,999999.99',
+        ]);
+    
+        ExtraIngredient::create($request->only('name', 'price'));
+    
+        return redirect()->route('extra_ingredients.index')->with('success', 'Ingrediente extra creado exitosamente.');
+   
     }
 
     /**

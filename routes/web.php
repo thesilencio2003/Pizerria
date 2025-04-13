@@ -51,7 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
-    Route::get('/extra-ingredients', [Extra_IngredientsController::class,'index'])->name('Extra_Ingredients.index');
+    Route::get('/extra_ingredients', [Extra_IngredientsController::class,'index'])->name('extra_ingredients.index');
+    Route::post('/extra_ingredients', [ExtraIngredientController::class, 'store'])->name('extra_ingredients.store');
+    Route::get('/extra_ingredients/create', [Extra_IngredientsController::class,'create'])->name('extra_ingredients.create');
 
 
 });

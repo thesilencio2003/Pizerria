@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
  use App\Http\Controllers\Extra_IngredientsController;
+ use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/extra_ingredients/{id}', [Extra_IngredientsController::class, 'update'])->name('extra_ingredients.update');
     Route::get('/extra_ingredients/{id}/edit', [Extra_IngredientsController::class, 'edit'])->name('extra_ingredients.edit');
 
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
 
 

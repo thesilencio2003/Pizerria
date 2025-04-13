@@ -56,8 +56,6 @@ class OrderController extends Controller
 
        
         return redirect()->route('orders.index')->with('success', 'Pedido creado correctamente.');
-  
-
  
     }
 
@@ -74,7 +72,12 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $clients = Client::all();
+        $branches = Branch::all();
+        $employees = Employee::all();
+
+        return view('orders.edit', compact('order', 'clients', 'branches', 'employees'));
     }
 
     /**
@@ -82,7 +85,30 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'branch_id' => 'required|exists:branches,id',
+            'total_price' => 'required|numeric',
+            'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
+            'delivery_type' => 'required|in:en_local,a_domicilio',
+            'delivery_person_id' => 'nullable|exists:employees,id',
+        ]);
+
+        
+        $order = Order::findOrFail($id);
+
+        
+        $order->update([
+            'client_id' => $request->client_id,
+            'branch_id' => $request->branch_id,
+            'total_price' => $request->total_price,
+            'status' => $request->status,
+            'delivery_type' => $request->delivery_type,
+            'delivery_person_id' => $request->delivery_person_id,
+        ]);
+
+        
+        return redirect()->route('orders.index')->with('success', 'Pedido actualizado correctamente');
     }
 
     /**

@@ -68,7 +68,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 
     Route::get('/', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredient.index');
-
+    Route::post('/', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredient.store');
+    Route::get('/new', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredient.create');
 });
 
 

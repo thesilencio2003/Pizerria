@@ -23,8 +23,7 @@
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900">
 
-         
-
+        <a href="{{ route('order_extra_ingredient.create') }}" class="btn btn-success mb-3">Agregar</a>
           @if (session('success'))
             <div class="alert alert-success">
               {{ session('success') }}
@@ -48,8 +47,10 @@
                   <td>#{{ $item->order->id }}</td>
                   <td>{{ $item->extraIngredient->name }}</td>
                   <td>{{ $item->quantity }}</td>
+                  
                 </tr>
               @endforeach
+              
             </tbody>
           </table>
 

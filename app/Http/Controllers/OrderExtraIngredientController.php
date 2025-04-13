@@ -23,7 +23,9 @@ class OrderExtraIngredientController extends Controller
      */
     public function create()
     {
-        //
+        $orders = Order::all();
+        $extraIngredients = ExtraIngredient::all();
+        return view('order_extra_ingredient.new', compact('orders', 'extraIngredients'));
     }
 
     /**
@@ -31,7 +33,16 @@ class OrderExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'extra_ingredient_id' => 'required|exists:extra_ingredients,id',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        OrderExtraIngredient::create($request->all());
+
+        return redirect()->route('order_extra_ingredient.index')->with('success', 'Registro agregado correctamente.');
+  
     }
 
     /**
@@ -63,6 +74,6 @@ class OrderExtraIngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+    
     }
 }

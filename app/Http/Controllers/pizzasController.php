@@ -20,7 +20,7 @@ class pizzasController extends Controller
      */
     public function create()
     {
-    
+        return view('pizzaz.create');
     }
 
     /**
@@ -28,7 +28,8 @@ class pizzasController extends Controller
      */
     public function store(Request $request)
     {
-      
+        Pizza::create($request->all());
+        return redirect()->route('pizzas.index')->with('success', 'Pizza creada correctamente');
     }
 
     /**

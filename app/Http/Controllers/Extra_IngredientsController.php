@@ -55,7 +55,12 @@ class Extra_IngredientsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+    $ingredient = ExtraIngredient::findOrFail($id);
+
+    
+    return view('extra_ingredients.edit', compact('ingredient'));
+
     }
 
     /**
@@ -63,7 +68,16 @@ class Extra_IngredientsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|between:0,999999.99',
+        ]);
+
+        $extra_ingredient = ExtraIngredient::findOrFail($id);
+        $extra_ingredient->update($request->all());
+
+        return redirect()->route('extra_ingredients.index')->with('success', 'Ingrediente extra actualizado correctamente.');
+
     }
 
     /**

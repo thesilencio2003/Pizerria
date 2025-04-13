@@ -44,7 +44,7 @@
                               <td>{{ $ingredient->created_at }}</td>
                               <td>{{ $ingredient->updated_at }}</td>
                               <td>
-                               
+                              <a href="{{ route('extra_ingredients.edit', ['id' => $ingredient->id]) }}" class="btn btn-primary">Editar</a>
                                 <form action="{{ route('extra_ingredients.destroy', $ingredient->id) }}" method="POST" style="display: inline-block">
                                     @method('delete')
                                     @csrf

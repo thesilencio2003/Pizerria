@@ -55,7 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/extra_ingredients', [Extra_IngredientsController::class, 'store'])->name('extra_ingredients.store');
     Route::get('/extra_ingredients/create', [Extra_IngredientsController::class,'create'])->name('extra_ingredients.create');
     Route::delete('/extra_ingredients/{id}', [Extra_IngredientsController::class, 'destroy'])->name('extra_ingredients.destroy');
-
+    Route::put('/extra_ingredients/{id}', [Extra_IngredientsController::class, 'update'])->name('extra_ingredients.update');
+    Route::get('/extra_ingredients/{id}/edit', [Extra_IngredientsController::class, 'edit'])->name('extra_ingredients.edit');
 
 });
 

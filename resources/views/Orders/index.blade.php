@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,45 +12,74 @@
   <body>
     <x-app-layout>
       <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Orders') }}
-        </h2>
+          <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+              {{ __('Orders') }}
+          </h2>
       </x-slot>
+
       <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                <a href="{{ route('orders.create') }}" class="btn btn-success">Agregar Pedido</a>
-                  <table class="table mt-3">
-                      <thead>
-                          <tr>
-                              <th scope="col">ID</th>
-                              <th scope="col">Usuario</th>
-                              <th scope="col">Precio Total</th>
-                              <th scope="col">Fecha de Creación</th>
-                              <th scope="col">Acciones</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          @foreach ($orders as $order)
-                              <tr>
-                                  <th scope="row">{{ $order->id }}</th>
-                                  <td>{{ $order->user->name }}</td>
-                                  <td>{{ $order->total_price }}</td>
-                                  <td>{{ $order->created_at }}</td>
-                                  
-                              </tr>
-                          @endforeach
-                      </tbody>
-                  </table>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <a href="{{ route('orders.create') }}" class="btn btn-success mb-3">Agregar Pedido</a>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Sucursal</th>
+                                <th scope="col">Precio Total</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Tipo de Entrega</th>
+                                <th scope="col">Repartidor</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                            <tr>
+                                <th scope="row">{{ $order->id }}</th>
+                                <td>{{ $order->client->name }}</td>
+                                <td>{{ $order->branch->name }}</td>
+                                <td>{{ number_format($order->total_price, 2) }}</td>
+                                <td>{{ ucfirst($order->status) }}</td>
+                                <td>{{ ucfirst($order->delivery_type) }}</td>
+                                <td>
+                                    @if ($order->delivery_person_id)
+                                        {{ $order->deliveryPerson->name }}
+                                    @else
+                                        No asignado
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('orders.edit', ['id' => $order->id]) }}" class="btn btn-primary btn-sm">Editar</a>
+                                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline-block">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    {{ $orders->links() }} <!-- Paginación -->
                 </div>
             </div>
         </div>
       </div>
     </x-app-layout>
 
-    <!-- Optional JavaScript; choose one of the two! -->
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   </body>
 </html>

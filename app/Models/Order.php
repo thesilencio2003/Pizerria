@@ -9,44 +9,41 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $table = 'orders';
-
-    // Definir las columnas que pueden ser llenadas masivamente (fillable)
     protected $fillable = [
-        'user_id', 
-        'status', 
-        'total_price', 
-        'created_at', 
-        'updated_at'
+        'client_id',
+        'branch_id',
+        'total_price',
+        'status',
+        'delivery_type',
+        'delivery_person_id',
     ];
 
   
-    public function user()
+    public function client()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Client::class);
     }
 
-  
-    public function pizzas()
-    {
-        return $this->belongsToMany(Pizza::class, 'order_pizza');
-    }
-
- 
-    public function extraIngredients()
-    {
-        return $this->belongsToMany(ExtraIngredient::class, 'order_extra_ingredient');
-    }
-
-    
     public function branch()
     {
         return $this->belongsTo(Branch::class);
     }
 
-    
-    public function payment()
+
+    public function deliveryPerson()
     {
-        return $this->hasOne(Payment::class);
+        return $this->belongsTo(Employee::class, 'delivery_person_id');
+    }
+
+   
+    public function pizzas()
+    {
+        return $this->hasMany(OrderPizza::class);
+    }
+
+  
+    public function extraIngredients()
+    {
+        return $this->hasMany(OrderExtraIngredient::class);
     }
 }

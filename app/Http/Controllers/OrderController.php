@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\User;
+use App\Models\Client;
+use App\Models\Branch;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,8 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user')->get(); 
-        return view('orders.create', compact('users'));
+        $orders = Order::paginate(10);
+        return view('orders.index', compact('orders'));
+
     }
 
     /**
@@ -22,8 +25,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        return view('orders.create', compact('users'));
+        $clients = Client::all();
+        return view('orders.new', compact('clients'));
     }
 
     /**
@@ -31,17 +34,30 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'status' => 'required|string|max:255',
-            'total_price' => 'required|numeric|min:0',
+        
+        $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'branch_id' => 'required|exists:branches,id',
+            'total_price' => 'required|numeric',
+            'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
+            'delivery_type' => 'required|in:en_local,a_domicilio',
+            'delivery_person_id' => 'nullable|exists:employees,id', 
+        ]);
+
+        
+        Order::create([
+            'client_id' => $request->client_id,
+            'branch_id' => $request->branch_id,
+            'total_price' => $request->total_price,
+            'status' => $request->status,
+            'delivery_type' => $request->delivery_type,
+            'delivery_person_id' => $request->delivery_person_id,
         ]);
 
        
-        Order::create($validated);
+        return redirect()->route('orders.index')->with('success', 'Pedido creado correctamente.');
+  
 
-        
-        return redirect()->route('orders.index')->with('success', 'Orden creada con éxito.');
  
     }
 
@@ -74,6 +90,11 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->delete();
+    
+        return redirect()->route('orders.index')->with('success', 'Pedido eliminado correctamente.');
+    
+
     }
 }

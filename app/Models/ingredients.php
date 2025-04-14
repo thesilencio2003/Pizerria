@@ -9,6 +9,9 @@ class ingredients extends Model
 {
     use HasFactory;
 
+    protected $table = 'ingredents';
+    protected $primaryKey = 'id';
+    public $timestamps = true;
 
     protected $fillable = [
         'name',

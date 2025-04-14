@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
- use App\Http\Controllers\pizzasController;
+ use App\Http\Controllers\pizzaController;
+ use App\Http\Controllers\PurchaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,7 +52,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/employees/{id}/edit', [employeesController::class, 'edit'])->name('employees.edit');
     Route::delete('/employees/{id}', [employeesController::class, 'destroy'])->name('employees.destroy');
 
-    Route::get('/pizza', [pizzasController::class,'index'])->name('pizzas.index');
+    Route::resource('purchases', PurchaseController::class);
+
+    Route::get('/pizza', [pizzaController::class,'index'])->name('pizzas.index');
+    Route::get('/pizzas/create', [PizzaController::class, 'create'])->name('pizzas.create');
+    Route::post('/pizzas', [PizzaController::class, 'store'])->name('pizzas.store');
+    Route::get('/pizzas/{id}/edit', [PizzaController::class, 'edit'])->name('pizzas.edit');
+    Route::delete('/pizza/{id}', [PizzaController::class, 'destroy'])->name('pizzas.destroy');
+    Route::get('/pizzas/{id}', [PizzaController::class, 'show'])->name('pizzas.show');
+    Route::put('/pizzas/{id}', [PizzaController::class, 'update'])->name('pizzas.update');
+    
+    Route::get('/ingredients', [ingredientController::class,'index'])->name('ingredients.index');
+    
 });
 
 

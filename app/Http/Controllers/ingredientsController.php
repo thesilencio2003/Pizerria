@@ -12,7 +12,7 @@ class ingredientsController extends Controller
     public function index()
     {
         $ingredients = ingredients::table('ingredients')->get();
-        return view('ingrediantes.index', compact('ingredients'));
+        return view('ingrediants.index', compact('ingredients'));
     }
 
     /**

@@ -12,8 +12,10 @@ class pizza extends Model
     protected $primaryKey = 'id';
     protected $table = 'pizzas';
     public $timestamps = true;
-    
-    public function pizzas() {
-        return $this->belongsToMany(Pizza::class);
+
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_pizza');
     }
 }

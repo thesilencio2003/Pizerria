@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+ use App\Http\Controllers\ProfileController;
+ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\UserController;
  use App\Http\Controllers\ClientsController;
  use App\Http\Controllers\employeesController;
@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\OrderController;
  use App\Http\Controllers\OrderExtraIngredientController;
  use App\Http\Controllers\OrderPizzaController;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,14 +69,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 
-    Route::get('/', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredient.index');
-    Route::post('/', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredient.store');
-    Route::get('/new', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredient.create');
-    Route::delete('/{id}', [OrderExtraIngredientController::class, 'destroy'])->name('order_extra_ingredient.destroy');
-    Route::put('/{id}', [OrderExtraIngredientController::class, 'update'])->name('order_extra_ingredient.update');
-    Route::get('/{id}/edit', [OrderExtraIngredientController::class, 'edit'])->name('order_extra_ingredient.edit');
+    Route::get('/order_extra_ingredient', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredient.index');
+    Route::post('/order_extra_ingredient', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredient.store');
+    Route::get('/order_extra_ingredient/create', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredient.create');
+    Route::delete('/order_extra_ingredient{id}', [OrderExtraIngredientController::class, 'destroy'])->name('order_extra_ingredient.destroy');
+    Route::put('/order_extra_ingredient{id}', [OrderExtraIngredientController::class, 'update'])->name('order_extra_ingredient.update');
+    Route::get('/order_extra_ingredient{id}/edit', [OrderExtraIngredientController::class, 'edit'])->name('order_extra_ingredient.edit');
 
-    Route::get('/order_pizza', [OrderController::class, 'index'])->name('order_pizza.index');
+    Route::get('/order_pizza', [OrderPizzaController::class, 'index'])->name('order_pizza.index');
+    
 });
 
 

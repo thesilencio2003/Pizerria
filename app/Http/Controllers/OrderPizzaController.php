@@ -32,7 +32,19 @@ class OrderPizzaController extends Controller
      */
     public function create()
     {
-        //
+        $orders = DB::table('orders')
+        ->orderBy('id')
+        ->get();
+
+    $pizzaSizes = DB::table('pizza_size')
+        ->orderBy('id')
+        ->get();
+
+    return view('order_pizza.new', [
+        'orders' => $orders,
+        'pizzaSizes' => $pizzaSizes
+    ]);
+
     }
 
     /**
@@ -40,7 +52,25 @@ class OrderPizzaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orderPizza = new order_pizza();
+
+        $orderPizza->order_id = $request->order_id;
+        $orderPizza->pizza_size_id = $request->pizza_size_id;
+        $orderPizza->quantity = $request->quantity;
+        $orderPizza->save();
+
+        $orderPizzas = DB::table('order_pizza')
+            ->join('orders', 'order_pizza.order_id', '=', 'orders.id')
+            ->join('pizza_size', 'order_pizza.pizza_size_id', '=', 'pizza_size.id')
+            ->select(
+                'order_pizza.*',
+                'orders.id as order_id',
+                'orders.created_at as order_created_at',
+                'pizza_size.price as pizza_size_price'
+            )
+            ->get();
+
+        return view('order_pizza.index', ['orderPizzas' => $orderPizzas]); 
     }
 
     /**
@@ -72,6 +102,6 @@ class OrderPizzaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }

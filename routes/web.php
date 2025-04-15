@@ -77,7 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/order_extra_ingredient{id}/edit', [OrderExtraIngredientController::class, 'edit'])->name('order_extra_ingredient.edit');
 
     Route::get('/order_pizza', [OrderPizzaController::class, 'index'])->name('order_pizza.index');
-    
+    Route::post('/order_pizza', [OrderPizzaController::class, 'store'])->name('order_pizza.store');
+    Route::get('/order_pizza/create', [OrderPizzaController::class, 'create'])->name('order_pizza.create');
 });
 
 

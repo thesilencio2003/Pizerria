@@ -80,6 +80,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/order_pizza', [OrderPizzaController::class, 'store'])->name('order_pizza.store');
     Route::get('/order_pizza/create', [OrderPizzaController::class, 'create'])->name('order_pizza.create');
     Route::delete('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'destroy'])->name('order_pizza.destroy');
+    Route::put('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
+    Route::get('/order_pizza/{order_pizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');
 });
 
 

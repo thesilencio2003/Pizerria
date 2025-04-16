@@ -36,7 +36,11 @@
                                 <td>{{ $pizzaIngredient->ingredient_nombre }}</td>
                                 <td>
                                     <a href="{{route('pizza_ingredient.edit',['pizzaIngredient'=>$pizzaIngredient->id])}}" class="btn btn-info">Edit</a>
-
+                                    <form action="{{ route('pizza_ingredient.destroy', $pizzaIngredient->id) }}" method="POST" style="display: inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Are you sure you want to delete this employee?') }}')">{{ __('Delete') }}</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

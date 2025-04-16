@@ -23,7 +23,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Nombre</th>
-                  <th>ingredientes</th>
+                  <th>controls</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,15 +32,14 @@
                   <td>{{ $pizza->id }}</td>
                   <td>{{ $pizza->name }}</td>
                   <td>
-                  </td>
-                  <td>
-                    <a href="{{ route('pizzas.edit', $pizza->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                    <form action="{{ route('pizzas.destroy', $pizza->id) }}" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit"class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta pizza?')">Eliminar</button>
-                  </form>
-                  </td>
+                    <div class="d-flex gap-2">
+                      <a href="{{ route('pizzas.edit', $pizza->id) }}" class="btn btn-primary btn-sm">Editar</a>
+                      <form action="{{ route('pizzas.destroy', $pizza->id) }}" method="POST">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta pizza?')">Eliminar</button>
+                      </form>
+                  </div>
                 </tr>
                 @endforeach
               </tbody>

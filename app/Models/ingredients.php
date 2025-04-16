@@ -9,7 +9,7 @@ class ingredients extends Model
 {
     use HasFactory;
 
-    protected $table = 'ingredents';
+    protected $table = 'ingredients';
     protected $primaryKey = 'id';
     public $timestamps = true;
 
@@ -17,10 +17,9 @@ class ingredients extends Model
         'name',
         'description',
         'stock_quantity',
-        'unit', // Ejemplo: gramos, piezas, litros, etc.
+        'unit', 
     ];
-
-    // Relaciones (opcional, si vas a vincular ingredientes con pizzas)
+    
     public function pizzas()
     {
         return $this->belongsToMany(Pizza::class, 'ingredient_pizza')

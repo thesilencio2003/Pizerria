@@ -60,8 +60,27 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('purchases.index')" :active="request()->routeIs('purchases.index')">
-                        {{ __('purchases') }}
+                    <x-nav-link :href="route('pizzas.index')" :active="request()->routeIs('pizzas.index')">
+                        {{ __('pizzas') }}
+                    </x-nav-link>
+                </div>
+
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('ingredents.index')" :active="request()->routeIs('ingredents.index')">
+                        {{ __('ingredients') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('piza_size.index')" :active="request()->routeIs('piza_size.index')">
+                        {{ __('piza_size') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pizza_ingredient.index')" :active="request()->routeIs('pizza_ingredient.index')">
+                        {{ __('pizza_ingredient') }}
                     </x-nav-link>
                 </div>
 

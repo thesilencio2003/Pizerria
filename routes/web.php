@@ -10,6 +10,12 @@
  use App\Http\Controllers\OrderExtraIngredientController;
  use App\Http\Controllers\OrderPizzaController;
  
+ use App\Http\Controllers\BranchController;
+ use App\Http\Controllers\raw_materialsController;
+ use App\Http\Controllers\SupplierController;
+ use App\Http\Controllers\PurchaseController;
+ use App\Http\Controllers\PizzaRawMaterialController;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,6 +88,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'destroy'])->name('order_pizza.destroy');
     Route::put('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
     Route::get('/order_pizza/{order_pizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');
+
+    Route::resource('branches', BranchController::class);
+
+    // Rutas de suppliers (proveedores)
+    Route::resource('suppliers', SupplierController::class);
+
+    // Rutas de raw_materials (Materiales)
+    Route::resource('raw_materials', raw_materialsController::class); 
+
+    // Rutas de Purchases 
+    Route::resource('purchases', PurchaseController::class);
+
+    // Rutas de pizza_raw_materials 
+    Route::resource('pizza_raw_materials', PizzaRawMaterialController::class);
+
+
 });
 
 

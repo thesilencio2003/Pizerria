@@ -88,6 +88,9 @@ class ingredientsController extends Controller
      */
     public function destroy(string $id)
     {
- 
+        DB::table('ingredients')->where('id', $id)->delete();
+
+        $ingredients = DB::table('ingredients')->get();
+        return view('ingredents.index', ['ingredients' => $ingredients]);
     }
 }

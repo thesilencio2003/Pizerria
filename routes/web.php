@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ingredients', [ingredientsController::class, 'store'])->name('ingredients.store');
     Route::put('/ingredients/{ingredient}', [ingredientsController::class, 'update'])->name('ingredients.update');
     Route::get('ingredients/{ingredient}/edit', [ingredientsController::class, 'edit'])->name('ingredients.edit');});
+    Route::delete('/ingredients/{id}', [ingredientsController::class, 'destroy'])->name('ingredients.destroy');
 
 
 

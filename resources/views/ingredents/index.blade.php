@@ -31,6 +31,11 @@
                   <td>{{ $ingredient->name}}</td>
                   <td>
                     <a href="{{route('ingredients.edit',['ingredient'=>$ingredient->id])}}" class="btn btn-info">Edit</a>
+                    <form action="{{ route('ingredients.destroy', $ingredient->id) }}" method="POST" style="display: inline-block">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('Are you sure you want to delete this employee?') }}')">{{ __('Delete') }}</button>
+                  </form>
                   </td>
                 </tr>
                 @endforeach

@@ -23,6 +23,7 @@ class ingredientsController extends Controller
      */
     public function create()
     {
+        return view('ingredents.new');
 
     }
 
@@ -31,7 +32,18 @@ class ingredientsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name' => 'required|string|max:255|unique:ingredients',
+        ]);
+
+        DB::table('ingredients')->insert([
+            'name' => $request->name,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $ingredients = DB::table('ingredients')->get();
+        return view('ingredents.index', ['ingredients' => $ingredients]);
     }
 
     /**

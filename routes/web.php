@@ -64,7 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/pizzas/{id}', [PizzaController::class, 'update'])->name('pizzas.update');
     
     Route::get('/ingredients', [ingredientsController::class,'index'])->name('ingredents.index');
-    
+    Route::get('/ingredients/create', [ingredientsController::class, 'create'])->name('ingredients.create');
+    Route::post('/ingredients', [ingredientsController::class, 'store'])->name('ingredients.store');
+
 });
 
 

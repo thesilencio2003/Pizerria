@@ -25,8 +25,13 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::with('user')->get();
         return view('orders.new', compact('clients'));
+        
+       /* $clients = Client::with('user')->get();
+        $branches = Branch::all();
+        return view('orders.new', compact('clients', 'branches'));
+        */
     }
 
     /**

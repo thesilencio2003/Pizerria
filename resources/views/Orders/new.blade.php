@@ -19,7 +19,7 @@
                 <label for="client_id" class="form-label">Cliente</label>
                 <select class="form-select" id="client_id" name="client_id">
                     @foreach ($clients as $client)
-                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                        <option value="{{ $client->id }}">{{ $client->user->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -30,6 +30,18 @@
                    
                 </select>
             </div>
+
+            {{--
+                    <div class="mb-3">
+                        <label for="branch_id" class="form-label">Sucursal</label>
+                        <select class="form-select" id="branch_id" name="branch_id" required>
+                            <option value="">Seleccionar Sucursal</option>
+                            @foreach ($branches as $branch)
+                                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+            --}}
 
             <div class="mb-3">
                 <label for="total_price" class="form-label">Precio Total</label>

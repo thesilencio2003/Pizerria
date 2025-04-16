@@ -35,7 +35,8 @@
                                 <td>{{ $pizzaIngredient->pizza_nombre }}</td>
                                 <td>{{ $pizzaIngredient->ingredient_nombre }}</td>
                                 <td>
-                                  
+                                    <a href="{{route('pizza_ingredient.edit',['pizzaIngredient'=>$pizzaIngredient->id])}}" class="btn btn-info">Edit</a>
+
                                 </td>
                             </tr>
                         @endforeach

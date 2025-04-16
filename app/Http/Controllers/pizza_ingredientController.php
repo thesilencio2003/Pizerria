@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\pizza_ingredient;
+use App\Models\PizzaIngredient;
 use Illuminate\Support\Facades\DB;
 
 class pizza_ingredientController extends Controller
@@ -87,7 +87,18 @@ class pizza_ingredientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pizzaIngredient = DB::table('pizza_ingredient')->find($id);
+        
+        $pizzas = DB::table('pizzas')
+         ->orderBy('name')
+         ->get();
+      
+        $ingredients = DB::table('ingredients')
+         ->orderBy('name')
+         ->get();
+      
+        return view('pizza_ingredient.edit', ['pizzaIngredient' => $pizzaIngredient, 'pizzas' => $pizzas, 'ingredients' => $ingredients]);
+       
     }
 
     /**
@@ -95,7 +106,31 @@ class pizza_ingredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'pizza_id' => 'required|exists:pizzas,id',
+            'ingredient_id' => 'required|exists:ingredients,id',
+        ]);
+
+        DB::table('pizza_ingredient')
+            ->where('id', $id)
+            ->update([
+                'pizza_id' => $request->pizza_id,
+                'ingredient_id' => $request->ingredient_id,
+                'updated_at' => now(),
+            ]);
+
+        $pizzaIngredients = DB::table('pizza_ingredient')
+            ->join('pizzas', 'pizza_ingredient.pizza_id', '=', 'pizzas.id')
+            ->join('ingredients', 'pizza_ingredient.ingredient_id', '=', 'ingredients.id')
+            ->select(
+                'pizza_ingredient.*',
+                'pizzas.name as pizza_nombre', 
+                'ingredients.name as ingredient_nombre' 
+            )
+            ->get();
+
+        return view('pizza_ingredient.index', ['pizzaIngredients' => $pizzaIngredients]);
+
     }
 
     /**

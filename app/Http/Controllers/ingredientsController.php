@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ingredients;
+use Illuminate\Support\Facades\DB;
+
 
 class ingredientsController extends Controller
 {
@@ -11,8 +14,8 @@ class ingredientsController extends Controller
      */
     public function index()
     {
-        $ingredients = ingredients::table('ingredients')->get();
-        return view('ingrediants.index', compact('ingredients'));
+        $ingredients = DB::table('ingredients')->get();
+        return view('ingredents.index', ['ingredients' => $ingredients]);
     }
 
     /**

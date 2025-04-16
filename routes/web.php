@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\employeesController;
  use App\Http\Controllers\pizzaController;
  use App\Http\Controllers\PurchaseController;
+ use App\Http\Controllers\ingredientsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,7 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pizzas/{id}', [PizzaController::class, 'show'])->name('pizzas.show');
     Route::put('/pizzas/{id}', [PizzaController::class, 'update'])->name('pizzas.update');
     
-    Route::get('/ingredients', [ingredientController::class,'index'])->name('ingredients.index');
+    Route::get('/ingredients', [ingredientsController::class,'index'])->name('ingredents.index');
     
 });
 

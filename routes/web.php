@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\pizzaController;
  use App\Http\Controllers\PurchaseController;
  use App\Http\Controllers\ingredientsController;
+ use App\Http\Controllers\pizza_sizeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,6 +70,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/ingredients/{ingredient}', [ingredientsController::class, 'update'])->name('ingredients.update');
     Route::get('ingredients/{ingredient}/edit', [ingredientsController::class, 'edit'])->name('ingredients.edit');});
     Route::delete('/ingredients/{id}', [ingredientsController::class, 'destroy'])->name('ingredients.destroy');
+
+    Route::get('/piza_size', [pizza_sizeController::class,'index'])->name('piza_size.index');
 
 
 

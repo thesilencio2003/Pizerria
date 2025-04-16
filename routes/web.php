@@ -72,7 +72,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/ingredients/{id}', [ingredientsController::class, 'destroy'])->name('ingredients.destroy');
 
     Route::get('/piza_size', [pizza_sizeController::class,'index'])->name('piza_size.index');
-
+    Route::get('/piza_size/create', [pizza_sizeController::class, 'create'])->name('piza_size.create');
+    Route::post('/piza_size', [pizza_sizeController::class, 'store'])->name('piza_size.store');
+   
 
 
 require __DIR__.'/auth.php';

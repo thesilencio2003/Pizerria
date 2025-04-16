@@ -25,7 +25,10 @@ class pizza_sizeController extends Controller
      */
     public function create()
     {
-        //
+        $pizzas = DB::table('pizzas')
+        ->orderBy('name')
+        ->get();
+         return view('pizza_size.new', ['pizzas' => $pizzas]);
     }
 
     /**
@@ -33,7 +36,26 @@ class pizza_sizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pizza_id' => 'required|exists:pizzas,id',
+            'size' => 'required|in:pequeña,mediana,grande',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        DB::table('pizza_size')->insert([
+            'pizza_id' => $request->pizza_id,
+            'size' => $request->size,
+            'price' => $request->price,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $pizzaSizes = DB::table('pizza_size')
+            ->join('pizzas', 'pizza_size.pizza_id', '=', 'pizzas.id')
+            ->select('pizza_size.*', 'pizzas.name as pizza_name')
+            ->get();
+
+        return view('pizza_size.index', ['pizzaSizes' => $pizzaSizes]);
     }
 
     /**

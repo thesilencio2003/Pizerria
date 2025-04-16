@@ -30,9 +30,7 @@
                   <td>{{ $ingredient->id }}</td>
                   <td>{{ $ingredient->name}}</td>
                   <td>
-                  </td>
-                  <td>
-                 
+                    <a href="{{route('ingredients.edit',['ingredient'=>$ingredient->id])}}" class="btn btn-info">Edit</a>
                   </td>
                 </tr>
                 @endforeach

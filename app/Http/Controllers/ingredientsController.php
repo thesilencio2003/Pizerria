@@ -59,7 +59,8 @@ class ingredientsController extends Controller
      */
     public function edit(string $id)
     {
-
+        $ingredient = DB::table('ingredients')->find($id);
+        return view('ingredents.edit', ['ingredient' => $ingredient]);
     }
 
     /**
@@ -67,6 +68,19 @@ class ingredientsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:ingredients,name,' . $id,
+        ]);
+
+        DB::table('ingredients')
+            ->where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'updated_at' => now(),
+            ]);
+
+        $ingredients = DB::table('ingredients')->get();
+        return view('ingredents.index', ['ingredients' => $ingredients]);
     }
 
     /**

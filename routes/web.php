@@ -66,8 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/ingredients', [ingredientsController::class,'index'])->name('ingredents.index');
     Route::get('/ingredients/create', [ingredientsController::class, 'create'])->name('ingredients.create');
     Route::post('/ingredients', [ingredientsController::class, 'store'])->name('ingredients.store');
-
-});
+    Route::put('/ingredients/{ingredient}', [ingredientsController::class, 'update'])->name('ingredients.update');
+    Route::get('ingredients/{ingredient}/edit', [ingredientsController::class, 'edit'])->name('ingredients.edit');});
 
 
 

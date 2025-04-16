@@ -34,8 +34,16 @@
                                 <td>{{ $pizzaSize->size }}</td>
                                 <td>{{ $pizzaSize->price }}</td>
                                 <td>
-                                    <a href="{{ route('piza_size.edit', ['pizza_size' => $pizzaSize->id]) }}" class="btn btn-info">Edit</a>
-                                </tr>
+                                    <div class="d-flex gap-2">
+                                        <a href="{{ route('piza_size.edit', ['pizza_size' => $pizzaSize->id]) }}" class="btn btn-info btn-sm">Edit</a>
+                                        <form action="{{ route('piza_size.destroy', $pizzaSize->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta pizza?')">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>

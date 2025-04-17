@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Editar Pizza en Orden</h1>
 
-    <form method="POST" action="{{ route('order_pizza.update', ['id' => $orderPizza->id]) }}">
+    <form method="POST" action="{{ route('order_pizza.update', ['orderPizza' => $orderPizza->id]) }}">
         @method('put')
         @csrf
 
@@ -26,7 +26,7 @@
             <select class="form-select" id="pizza_size_id" name="pizza_size_id" required>
                 <option selected disabled value="">Seleccionar Tamaño</option>
                 @foreach ($pizzaSizes as $size)
-                    <option value="{{ $size->id }}" @if($orderPizza->pizza_size_id == $size->id) selected @endif>{{ $size->name }} - ${{ number_format($size->price, 2) }}</option>
+                    <option value="{{ $size->id }}" @if($orderPizza->pizza_size_id == $size->id) selected @endif>{{ $size->size }} - ${{ number_format($size->price, 2) }}</option>
                 @endforeach
             </select>
         </div>

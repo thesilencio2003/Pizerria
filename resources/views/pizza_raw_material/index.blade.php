@@ -45,12 +45,11 @@
                                 <td>{{ $ingredient->quantity }}</td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <a href="{{ route('pizza_raw_materials.edit', ['pizza_raw_materials' => $ingredient->id]) }}"
-                                            class="btn btn-outline-dark btn-icon" title="Editar">
+                                        <a href="{{ route('pizza_raw_materials.edit', ['pizza_raw_material' => $ingredient->id]) }}" class="btn btn-primary btn-sm" >Editar</a>                                            
                                             <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <form action="{{ route('pizza_raw_materials.destroy', ['pizza_raw_materials' => $ingredient->id]) }}"
+                                        <form action="{{ route('pizza_raw_materials.destroy', ['pizza_raw_material' => $ingredient->id]) }}" method="POST" style="display: inline-block"
                                             method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este ingrediente?');">
                                             @csrf
                                             @method('delete')

@@ -11,4 +11,9 @@ class employees extends Model
     protected $table = 'employees';
     protected $primaryKey = 'id';
     public $timestamps = true;
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

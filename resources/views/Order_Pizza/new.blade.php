@@ -28,7 +28,7 @@
                 <select class="form-select" id="pizza_size_id" name="pizza_size_id" required>
                     <option value="">Seleccionar Tamaño</option>
                     @foreach ($pizzaSizes as $size)
-                        <option value="{{ $size->id }}">{{ $size->name }} - ${{ number_format($size->price, 2) }}</option>
+                        <option value="{{ $size->id }}">{{ $size->size }} - ${{ number_format($size->price, 2) }}</option>
                     @endforeach
                 </select>
             </div>

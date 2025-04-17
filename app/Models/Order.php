@@ -21,7 +21,12 @@ class Order extends Model
   
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Client::class)->with('user');
+    }
+
+    public function deliveryPerson()
+    {
+        return $this->belongsTo(Employees::class, 'delivery_person_id')->with('user');
     }
 
     public function branch()
@@ -29,11 +34,12 @@ class Order extends Model
         return $this->belongsTo(Branch::class);
     }
 
-
-    public function deliveryPerson()
+    public function pizzaSize()
     {
-        return $this->belongsTo(Employee::class, 'delivery_person_id');
+        return $this->belongsTo(PizzaSize::class, 'pizza_size_id');
     }
+
+
 
    
     public function pizzas()

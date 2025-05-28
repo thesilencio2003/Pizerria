@@ -58,11 +58,12 @@ class OrderExtraIngredientController extends Controller
      */
     public function edit(string $id)
     {
-        $item = OrderExtraIngredient::findOrFail($id);
-        $orders = Order::all();
-        $extraIngredients = ExtraIngredient::all();
+        $orderExtraIngredient = OrderExtraIngredient::findOrFail($id);
+    $orders = Order::all();
+    $extraIngredients = ExtraIngredient::all();
 
-        return view('order_extra_ingredient.edit', compact('item', 'orders', 'extraIngredients'));
+    return view('order_extra_ingredient.edit', compact('orderExtraIngredient', 'orders', 'extraIngredients'));
+
     }
 
     /**

@@ -10,6 +10,19 @@
  use App\Http\Controllers\OrderExtraIngredientController;
  use App\Http\Controllers\OrderPizzaController;
  
+ use App\Http\Controllers\BranchController;
+ use App\Http\Controllers\raw_materialsController;
+ use App\Http\Controllers\SupplierController;
+ use App\Http\Controllers\PurchaseController;
+ use App\Http\Controllers\PizzaRawMaterialController;
+
+ use App\Http\Controllers\pizzaController;
+ use App\Http\Controllers\ingredientsController;
+ use App\Http\Controllers\pizza_sizeController;
+ use App\Http\Controllers\pizza_ingredientController;
+
+ use App\Http\Middleware\CheckRole;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +43,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -80,8 +94,54 @@ Route::middleware('auth')->group(function () {
     Route::post('/order_pizza', [OrderPizzaController::class, 'store'])->name('order_pizza.store');
     Route::get('/order_pizza/create', [OrderPizzaController::class, 'create'])->name('order_pizza.create');
     Route::delete('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'destroy'])->name('order_pizza.destroy');
-    Route::put('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
-    Route::get('/order_pizza/{order_pizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');
+    Route::put('/order_pizza/{orderPizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
+    Route::get('/order_pizza/{orderPizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');
+
+    Route::resource('branches', BranchController::class);
+
+    // Rutas de suppliers (proveedores)
+    Route::resource('suppliers', SupplierController::class);
+
+    // Rutas de raw_materials (Materiales)
+    Route::resource('raw_materials', raw_materialsController::class); 
+
+    // Rutas de Purchases 
+    Route::resource('purchases', PurchaseController::class);
+
+    // Rutas de pizza_raw_materials 
+    Route::resource('pizza_raw_materials', PizzaRawMaterialController::class);
+
+    Route::get('/pizza', [pizzaController::class,'index'])->name('pizzas.index');
+    Route::get('/pizzas/create', [PizzaController::class, 'create'])->name('pizzas.create');
+    Route::post('/pizzas', [PizzaController::class, 'store'])->name('pizzas.store');
+    Route::get('/pizzas/{id}/edit', [PizzaController::class, 'edit'])->name('pizzas.edit');
+    Route::delete('/pizza/{id}', [PizzaController::class, 'destroy'])->name('pizzas.destroy');
+    Route::get('/pizzas/{id}', [PizzaController::class, 'show'])->name('pizzas.show');
+    Route::put('/pizzas/{id}', [PizzaController::class, 'update'])->name('pizzas.update');
+    
+    Route::get('/ingredients', [ingredientsController::class,'index'])->name('ingredents.index');
+    Route::get('/ingredients/create', [ingredientsController::class, 'create'])->name('ingredients.create');
+    Route::post('/ingredients', [ingredientsController::class, 'store'])->name('ingredients.store');
+    Route::put('/ingredients/{ingredient}', [ingredientsController::class, 'update'])->name('ingredients.update');
+    Route::get('ingredients/{ingredient}/edit', [ingredientsController::class, 'edit'])->name('ingredients.edit');
+    Route::delete('/ingredients/{id}', [ingredientsController::class, 'destroy'])->name('ingredients.destroy');
+
+    Route::get('/piza_size', [pizza_sizeController::class,'index'])->name('piza_size.index');
+    Route::get('/piza_size/create', [pizza_sizeController::class, 'create'])->name('piza_size.create');
+    Route::post('/piza_size', [pizza_sizeController::class, 'store'])->name('piza_size.store');
+    Route::get('/piza_size/{pizza_size}/edit', [pizza_sizeController::class, 'edit'])->name('piza_size.edit');
+    Route::put('/piza_size/{pizza_size}', [pizza_sizeController::class, 'update'])->name('piza_size.update');
+    Route::delete('/piza_size/{id}', [pizza_sizeController::class, 'destroy'])->name('piza_size.destroy');
+
+    Route::get('/pizza_ingredient', [pizza_ingredientController::class,'index'])->name('pizza_ingredient.index');
+    Route::get('/pizza_ingredient/create', [pizza_ingredientController::class, 'create'])->name('pizza_ingredient.create');
+    Route::post('/pizza_ingredient', [pizza_ingredientController::class, 'store'])->name('pizza_ingredient.store');
+    Route::get('/pizza_ingredient/{pizzaIngredient}/edit', [pizza_ingredientController::class, 'edit'])->name('pizza_ingredient.edit');
+    Route::put('/pizza_ingredient/{pizzaIngredient}', [pizza_ingredientController::class, 'update'])->name('pizza_ingredient.update');
+    Route::delete('/pizza_ingredient/{id}', [pizza_ingredientController::class, 'destroy'])->name('pizza_ingredient.destroy');
+
+    
+
 });
 
 

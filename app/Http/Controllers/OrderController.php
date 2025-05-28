@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Client;
 use App\Models\Branch;
-use App\Models\Employee;
+use App\Models\Employees;
+use App\Models\PizzaSize;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -15,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(10);
+        $orders = Order::with(['client', 'deliveryPerson', 'branch'])->paginate(10); // Carga las relaciones
         return view('orders.index', compact('orders'));
 
     }
@@ -25,8 +27,12 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
-        return view('orders.new', compact('clients'));
+        $clients = Client::with('user')->get();
+        $branches = Branch::all();
+        $employees = Employees::with('user')->get(); 
+        $pizzaSizes = PizzaSize::all();  
+        return view('orders.new', compact('clients', 'branches', 'employees', 'pizzaSizes'));   
+        
     }
 
     /**
@@ -34,28 +40,32 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        
+      
         $request->validate([
             'client_id' => 'required|exists:clients,id',
             'branch_id' => 'required|exists:branches,id',
+            'pizza_size_id' => 'required|exists:pizza_size,id',
             'total_price' => 'required|numeric',
             'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
             'delivery_type' => 'required|in:en_local,a_domicilio',
-            'delivery_person_id' => 'nullable|exists:employees,id', 
+            'delivery_person_id' => 'nullable|exists:employees,id',
         ]);
-
-        
-        Order::create([
+    
+        DB::table('orders')->insert([
             'client_id' => $request->client_id,
             'branch_id' => $request->branch_id,
+            'pizza_size_id' => $request->pizza_size_id,
             'total_price' => $request->total_price,
             'status' => $request->status,
             'delivery_type' => $request->delivery_type,
             'delivery_person_id' => $request->delivery_person_id,
+            'created_at' => now(), 
+            'updated_at' => now(),
         ]);
-
-       
+    
         return redirect()->route('orders.index')->with('success', 'Pedido creado correctamente.');
+    
+     
  
     }
 
@@ -88,27 +98,25 @@ class OrderController extends Controller
         $request->validate([
             'client_id' => 'required|exists:clients,id',
             'branch_id' => 'required|exists:branches,id',
+            'pizza_size_id' => 'required|exists:pizza_size,id', // Assuming you've corrected this
             'total_price' => 'required|numeric',
             'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
             'delivery_type' => 'required|in:en_local,a_domicilio',
             'delivery_person_id' => 'nullable|exists:employees,id',
         ]);
-
-        
-        $order = Order::findOrFail($id);
-
-        
-        $order->update([
+    
+        Order::create([
             'client_id' => $request->client_id,
             'branch_id' => $request->branch_id,
+            'pizza_size_id' => $request->pizza_size_id, // You ARE providing this value here
             'total_price' => $request->total_price,
             'status' => $request->status,
             'delivery_type' => $request->delivery_type,
             'delivery_person_id' => $request->delivery_person_id,
         ]);
-
-        
-        return redirect()->route('orders.index')->with('success', 'Pedido actualizado correctamente');
+    
+        return redirect()->route('orders.index')->with('success', 'Pedido creado correctamente.');
+    
     }
 
     /**

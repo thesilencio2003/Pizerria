@@ -39,8 +39,7 @@
                               <td>${{ number_format($item->pizza_size_price, 2) }}</td>
                               <td>{{ $item->quantity }}</td>
                               <td>
-                                <a href="{{ route('order_pizza.edit', ['order_pizza' => $item->id]) }}" class="btn btn-primary">Edit</a>
-                                <form action="{{ route('order_pizza.destroy', $item->id) }}" method="POST" style="display: inline-block">
+                                <a href="{{ route('order_pizza.edit', ['orderPizza' => $item->id]) }}" class="btn btn-primary btn-sm">Editar</a>                                <form action="{{ route('order_pizza.destroy', $item->id) }}" method="POST" style="display: inline-block">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger" type="submit">Delete</button>

@@ -8,33 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class PizzaSize extends Model
 {
     use HasFactory;
-
-  
-    protected $table = 'pizza_size';
-
-
     protected $primaryKey = 'id';
-
-    
+    protected $table = 'pizza_size';
     public $timestamps = true;
-
-
-    protected $fillable = [
-        'pizza_id',
-        'size',
-        'price',
-    ];
-
-    protected $casts = [
-        'size' => 'string',  
-        'price' => 'decimal:2', 
-    ];
-
 
     public function pizza()
     {
         return $this->belongsTo(Pizza::class, 'pizza_id', 'id');
     }
-
-    
 }

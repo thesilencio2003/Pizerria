@@ -45,29 +45,35 @@
                         </thead>
                         <tbody>
                             @foreach ($orders as $order)
-                            <tr>
-                                <th scope="row">{{ $order->id }}</th>
-                                <td>{{ $order->client->name }}</td>
-                                <td>{{ $order->branch->name }}</td>
-                                <td>{{ number_format($order->total_price, 2) }}</td>
-                                <td>{{ ucfirst($order->status) }}</td>
-                                <td>{{ ucfirst($order->delivery_type) }}</td>
-                                <td>
-                                    @if ($order->delivery_person_id)
-                                        {{ $order->deliveryPerson->name }}
-                                    @else
-                                        No asignado
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{ route('orders.edit', ['id' => $order->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline-block">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <th scope="row">{{ $order->id }}</th>
+                                    <td>
+                                        @if ($order->client && $order->client->user)
+                                            {{ $order->client->user->name }}
+                                        @else
+                                            Cliente no asignado
+                                        @endif
+                                    </td>
+                                    <td>{{ $order->branch->name }}</td>
+                                    <td>{{ number_format($order->total_price, 2) }}</td>
+                                    <td>{{ ucfirst($order->status) }}</td>
+                                    <td>{{ ucfirst($order->delivery_type) }}</td>
+                                    <td>
+                                        @if ($order->deliveryPerson && $order->deliveryPerson->user)
+                                            {{ $order->deliveryPerson->user->name }}
+                                        @else
+                                            Repartidor no asignado
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('orders.edit', ['id' => $order->id]) }}" class="btn btn-primary btn-sm">Editar</a>
+                                        <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display: inline-block">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

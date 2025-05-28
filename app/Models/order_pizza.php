@@ -11,4 +11,9 @@ class order_pizza extends Model
     protected $table = 'order_pizza';         
     protected $primaryKey = 'id';       
     public $timestamps = false; 
+
+    public function pizzaSize()
+    {
+        return $this->belongsTo(PizzaSize::class, 'pizza_size_id');
+    }
 }

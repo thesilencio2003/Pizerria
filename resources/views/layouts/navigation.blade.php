@@ -43,7 +43,7 @@
                 </div>
             @endif
                 
-            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'secretaria']))
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'secretaria' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('extra_ingredients.index')" :active="request()->routeIs('extra_ingredients.index')">
                     {{ __('Extra Ingredients') }}
@@ -51,7 +51,7 @@
                 </div>
             @endif
 
-            @if(in_array(Auth::user()->role, ['admin', 'cajero']))
+            @if(in_array(Auth::user()->role, ['admin', 'cajero' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     {{ __('Orders') }}
@@ -59,7 +59,8 @@
                 </div>
             @endif
             
-            @if(Auth::user()->role === 'cajero')
+            
+            @if(in_array(Auth::user()->role, ['cajero ' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('order_extra_ingredient.index')" :active="request()->routeIs('order_extra_ingredient.index')">
                     {{ __('Order Extra') }}
@@ -67,11 +68,76 @@
                 </div>
             @endif
             
-            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero']))
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero ' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('order_pizza.index')" :active="request()->routeIs('order_pizza.index')">
                     {{ __('Order Pizza') }}
                   </x-nav-link>
+                </div>
+            @endif
+
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor'  , 'cliente']))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pizzas.index')" :active="request()->routeIs('pizzas.index')">
+                        {{ __('pizzas') }}
+                    </x-nav-link>
+                </div>
+            @endif    
+
+            @if(Auth::user()->role === 'admin')    
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('ingredents.index')" :active="request()->routeIs('ingredents.index')">
+                        {{ __('ingredients') }}
+                    </x-nav-link>
+                </div>
+            @endif    
+
+            
+            @if(in_array(Auth::user()->role, ['admin' , 'cliente']))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('piza_size.index')" :active="request()->routeIs('piza_size.index')">
+                        {{ __('piza_size') }}
+                    </x-nav-link>
+                </div>
+            @endif    
+
+            @if(Auth::user()->role === 'admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pizza_ingredient.index')" :active="request()->routeIs('pizza_ingredient.index')">
+                        {{ __('pizza_ingredient') }}
+                    </x-nav-link>
+                </div>
+            @endif
+
+            @if(in_array(Auth::user()->role, ['admin', 'secretaria' , 'cliente']))   
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.index')">
+                        {{ __('branches') }}
+                    </x-nav-link>
+                </div>
+            @endif
+                
+            @if(Auth::user()->role === 'admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.index')">
+                        {{ __('suppliers') }}
+                    </x-nav-link>
+                </div>
+            @endif
+
+            @if(Auth::user()->role === 'admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('raw_materials.index')" :active="request()->routeIs('raw_materials.index')">
+                        {{ __('raw_materials') }}
+                    </x-nav-link>
+                </div>
+            @endif
+
+            @if(Auth::user()->role === 'admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('pizza_raw_materials.index')" :active="request()->routeIs('pizza_raw_materials.index')">
+                        {{ __('pizza_raw_materials') }}
+                    </x-nav-link>
                 </div>
             @endif
 

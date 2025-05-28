@@ -19,17 +19,36 @@
                 <label for="client_id" class="form-label">Cliente</label>
                 <select class="form-select" id="client_id" name="client_id">
                     @foreach ($clients as $client)
-                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                        <option value="{{ $client->id }}">{{ $client->user->name }}</option>
                     @endforeach
                 </select>
             </div>
 
+            
+
+            
             <div class="mb-3">
                 <label for="branch_id" class="form-label">Sucursal</label>
-                <select class="form-select" id="branch_id" name="branch_id">
-                   
+                <select class="form-select" id="branch_id" name="branch_id" required>
+                    <option value="">Seleccionar Sucursal</option>
+                    @if(isset($branches))
+                        @foreach ($branches as $branch)
+                            <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                        @endforeach
+                    @endif
                 </select>
             </div>
+
+            <div class="mb-3">
+                <label for="pizza_size_id" class="form-label">Tamaño de Pizza</label>
+                <select class="form-select" id="pizza_size_id" name="pizza_size_id" required>
+                    <option value="">Seleccionar Tamaño</option>
+                    @foreach ($pizzaSizes as $pizzaSize)
+                        <option value="{{ $pizzaSize->id }}">{{ $pizzaSize->size }}</option>
+                    @endforeach
+                </select>
+            </div>
+            
 
             <div class="mb-3">
                 <label for="total_price" class="form-label">Precio Total</label>
@@ -58,6 +77,9 @@
                 <label for="delivery_person_id" class="form-label">Repartidor (Opcional)</label>
                 <select class="form-select" id="delivery_person_id" name="delivery_person_id">
                     <option value="">Seleccionar Repartidor</option>
+                    @foreach ($employees as $employee)
+                        <option value="{{ $employee->id }}">{{ $employee->user->name ?? 'Sin Nombre' }}</option>
+                    @endforeach
                 </select>
             </div>
 

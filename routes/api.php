@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\EmployeesController;
+use App\Http\Controllers\api\ExtraIngredientController;
 use App\Http\Controllers\api\IngredientController;
 use App\Http\Controllers\api\PizzaController;
+use App\Http\Controllers\api\PizzaIngredientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
@@ -52,3 +54,15 @@ Route::get('/ingredients', [IngredientController::class, 'index'])->name('ingred
 Route::get('/ingredients/{ingredient}', [IngredientController::class, 'show'])->name('ingredients.show');
 Route::put('/ingredients/{ingredient}', [IngredientController::class, 'update'])->name('ingredients.update');
 Route::delete('/ingredients/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredients.destroy');
+
+Route::post('/pizza-ingredients', [PizzaIngredientController::class, 'store'])->name('pizza_ingredients.store');
+Route::get('/pizza-ingredients', [PizzaIngredientController::class, 'index'])->name('pizza_ingredients');
+Route::get('/pizza-ingredients/{id}', [PizzaIngredientController::class, 'show'])->name('pizza_ingredients.show');
+Route::put('/pizza-ingredients/{id}', [PizzaIngredientController::class, 'update'])->name('pizza_ingredients.update');
+Route::delete('/pizza-ingredients/{id}', [PizzaIngredientController::class, 'destroy'])->name('pizza_ingredients.destroy');
+
+Route::post('/extra-ingredients', [ExtraIngredientController::class, 'store'])->name('extra_ingredients.store');
+Route::get('/extra-ingredients', [ExtraIngredientController::class, 'index'])->name('extra_ingredients');
+Route::get('/extra-ingredients/{id}', [ExtraIngredientController::class, 'show'])->name('extra_ingredients.show');
+Route::put('/extra-ingredients/{id}', [ExtraIngredientController::class, 'update'])->name('extra_ingredients.update');
+Route::delete('/extra-ingredients/{id}', [ExtraIngredientController::class, 'destroy'])->name('extra_ingredients.destroy');

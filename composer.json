@@ -26,7 +26,12 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+}
+
     },
     "autoload-dev": {
         "psr-4": {

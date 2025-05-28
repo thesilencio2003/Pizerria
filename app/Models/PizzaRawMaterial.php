@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PizzaRawMaterial extends Model
 {
-    protected $table = 'pizza_raw_material'; 
+    protected $fillable = ['name', 'quantity'];
+    protected $table = 'raw_materials'; 
     protected $primaryKey = 'id'; 
     public $timestamps = false;
 }

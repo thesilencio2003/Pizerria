@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\employees;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -10,9 +12,10 @@ class EmployeesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-        //
+        $employees = DB::table('employees')->get();
+        return json_encode(['employees' => $employees]);
     }
 
     /**
@@ -20,7 +23,11 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = new employees();
+        $employee->user_id = $request->user_id;
+        $employee->save();
+
+        return json_encode(['employee' => $employee]);
     }
 
     /**
@@ -28,7 +35,12 @@ class EmployeesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $employee = employees::find($id);
+        return json_encode(['employee' => $employee]);
+
+        if (is_null($employee)) {
+            return abort(404);
+        }
     }
 
     /**
@@ -36,7 +48,15 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $employee = employees::find($id);
+        $employee->user_id = $request->user_id ?? $employee->user_id;
+        $employee->save();
+
+        return json_encode(['employee' => $employee]);
+
+        if (is_null($employee)) {
+            return abort(404);
+        }
     }
 
     /**
@@ -44,6 +64,14 @@ class EmployeesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $employee = employees::find($id);
+        $employee->delete();
+
+        $employees = DB::table('employees')->get();
+        return json_encode(['employees' => $employees, 'success' => true]);
+
+        if (is_null($employee)) {
+            return abort(404);
+        }
     }
 }

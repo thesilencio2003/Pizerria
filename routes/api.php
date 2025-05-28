@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\ClientsController;
+use App\Http\Controllers\api\EmployeesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
@@ -32,4 +33,9 @@ Route::get('/clients/{client}', [ClientsController::class, 'show'])->name('clien
 Route::put('/clients/{client}', [ClientsController::class, 'update'])->name('clients.update');
 Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])->name('clients.destroy');
 
+Route::post('/employees', [EmployeesController::class, 'store'])->name('employees.store');
+Route::get('/employees', [EmployeesController::class, 'index'])->name('employees');
+Route::get('/employees/{employee}', [EmployeesController::class, 'show'])->name('employees.show');
+Route::put('/employees/{employee}', [EmployeesController::class, 'update'])->name('employees.update');
+Route::delete('/employees/{employee}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
 

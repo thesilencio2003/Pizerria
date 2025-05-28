@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BranchApiController;
+use App\Http\Controllers\api\PizzaApiRawMaterial;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('branches', BranchApiController::class);
+
+Route::get('/pizza-raw-materials', [PizzaApiRawMaterial::class, 'index']);
+//Route::post('/pizza-raw-materials', [PizzaApiRawMaterial::class, 'store']);

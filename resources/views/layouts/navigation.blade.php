@@ -11,53 +11,69 @@
                 </div>
 
                 <!-- Navigation Links -->
+            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'cliente')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+            @endif
 
+            @if(Auth::user()->role === 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('users') }}
                     </x-nav-link>
                 </div>
+            @endif
 
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
                         {{ __('clients') }}
                     </x-nav-link>
                 </div>
+            @endif
                 
+            @if(Auth::user()->role === 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('employees.index')" :active="request()->routeIs('employees.index')">
                         {{ __('employees') }}
                     </x-nav-link>
                 </div>
-
+            @endif
+                
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'secretaria']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('extra_ingredients.index')" :active="request()->routeIs('extra_ingredients.index')">
                     {{ __('Extra Ingredients') }}
                   </x-nav-link>
                 </div>
+            @endif
 
+            @if(in_array(Auth::user()->role, ['admin', 'cajero']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     {{ __('Orders') }}
                   </x-nav-link>
                 </div>
-
+            @endif
+            
+            @if(Auth::user()->role === 'cajero')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('order_extra_ingredient.index')" :active="request()->routeIs('order_extra_ingredient.index')">
                     {{ __('Order Extra') }}
                   </x-nav-link>
                 </div>
-
+            @endif
+            
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('order_pizza.index')" :active="request()->routeIs('order_pizza.index')">
                     {{ __('Order Pizza') }}
                   </x-nav-link>
                 </div>
+            @endif
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 

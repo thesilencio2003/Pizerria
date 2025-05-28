@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\EmployeesController;
+use App\Http\Controllers\api\PizzaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
@@ -39,3 +40,8 @@ Route::get('/employees/{employee}', [EmployeesController::class, 'show'])->name(
 Route::put('/employees/{employee}', [EmployeesController::class, 'update'])->name('employees.update');
 Route::delete('/employees/{employee}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
 
+Route::post('/pizzas', [PizzaController::class, 'store'])->name('pizzas.store');
+Route::get('/pizzas', [PizzaController::class, 'index'])->name('pizzas');
+Route::get('/pizzas/{pizza}', [PizzaController::class, 'show'])->name('pizzas.show');
+Route::put('/pizzas/{pizza}', [PizzaController::class, 'update'])->name('pizzas.update');
+Route::delete('/pizzas/{pizza}', [PizzaController::class, 'destroy'])->name('pizzas.destroy');

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ClientsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
@@ -25,5 +26,10 @@ Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.
 Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
+Route::post('/clients', [ClientsController::class, 'store'])->name('clients.store');
+Route::get('/clients', [ClientsController::class, 'index'])->name('clients');
+Route::get('/clients/{client}', [ClientsController::class, 'show'])->name('clients.show');
+Route::put('/clients/{client}', [ClientsController::class, 'update'])->name('clients.update');
+Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])->name('clients.destroy');
 
 

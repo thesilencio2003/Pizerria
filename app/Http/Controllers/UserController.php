@@ -30,11 +30,20 @@ class UserController extends Controller
         
         $roles = [
             (object) ['role' => 'cliente'],
-            (object) ['role' => 'empleado'],
+            (object) ['role' => 'cajero'],
+            (object)['role' => 'admin'],
+            (object)['role' => 'vendedor'],
+            
         ];
 
-        $clients = DB::table('clients')->get();
-        $employees = DB::table('employees')->get();
+        $clients = DB::table('clients')
+        ->join('users', 'clients.user_id', '=', 'users.id')
+        ->select('clients.id', 'users.name')
+        ->get();
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.id')
+        ->select('employees.id', 'users.name')
+        ->get();
 
         return view('user.new', [
             'roles' => $roles,
@@ -52,7 +61,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:cliente,empleado',
+            'role' => 'required|in:admin,cliente,vendedor,cajero',
             'client_id' => 'nullable|exists:clients,id',
             'employee_id' => 'nullable|exists:employees,id',
         ]);
@@ -88,19 +97,30 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
-        $roles = [
-            (object) ['role' => 'cliente'],
-            (object) ['role' => 'empleado'],
-        ];
-        $clients = DB::table('clients')->get();
-        $employees = DB::table('employees')->get();
 
-        return view('user.edit', [
-            'user' => $user,
-            'roles' => $roles,
-            'clients' => $clients,
-            'employees' => $employees,
-        ]);
+    $roles = [
+        (object) ['role' => 'admin'],
+        (object) ['role' => 'cliente'],
+        (object) ['role' => 'vendedor'],
+        (object) ['role' => 'cajero'],
+    ];
+
+    $clients = DB::table('clients')
+        ->join('users', 'clients.user_id', '=', 'users.id')
+        ->select('clients.id', 'users.name')
+        ->get();
+
+    $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.id')
+        ->select('employees.id', 'users.name')
+        ->get();
+
+    return view('user.edit', [
+        'user' => $user,
+        'roles' => $roles,
+        'clients' => $clients,
+        'employees' => $employees,
+    ]);
     }
 
     /**
@@ -111,7 +131,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'role' => 'required|in:cliente,empleado',
+            'role' => 'required|in:admin,cliente,vendedor,cajero',
             'client_id' => 'nullable|exists:clients,id',
             'employee_id' => 'nullable|exists:employees,id',
         ]);

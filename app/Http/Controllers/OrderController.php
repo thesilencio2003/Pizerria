@@ -85,7 +85,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $clients = Client::all();
         $branches = Branch::all();
-        $employees = Employee::all();
+        $employees = Employees::all();
 
         return view('orders.edit', compact('order', 'clients', 'branches', 'employees'));
     }

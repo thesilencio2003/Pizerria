@@ -1,59 +1,58 @@
-<div class="container">
-    <h1>Edit User</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Editar Usuario') }}
+        </h2>
+    </x-slot>
 
-    <form method="POST" action="{{ route('users.update', ['id' => $user->id]) }}">
-        @method('put')
-        @csrf
+    <div class="py-6">
+        <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white shadow-md rounded-lg p-6">
 
-        <div class="mb-3">
-            <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" aria-describedby="idHelp" name="id" disabled="disabled" value="{{ $user->id }}">
-            <div id="idHelp" class="form-text">User ID.</div>
+                <form method="POST" action="{{ route('users.update', ['id' => $user->id]) }}">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-4">
+                        <label for="id" class="block text-sm font-medium text-gray-700">ID</label>
+                        <input type="text" id="id" name="id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" disabled value="{{ $user->id }}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="{{ $user->name }}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" value="{{ $user->email }}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="role" class="block text-sm font-medium text-gray-700">Rol</label>
+                        <select id="role" name="role" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option disabled value="">Selecciona un rol</option>
+                            @foreach($roles as $roleOption)
+                                <option value="{{ $roleOption->role }}" @if($user->role == $roleOption->role) selected @endif>
+                                    {{ ucfirst($roleOption->role) }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    
+
+                    <div class="mt-6 flex justify-end gap-3">
+                        <a href="{{ route('users.index') }}" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md shadow-sm">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow-sm">
+                            Actualizar
+                        </button>
+                    </div>
+                </form>
+
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" required class="form-control" id="name" placeholder="User name" name="name" value="{{ $user->name }}">
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" required class="form-control" id="email" placeholder="User email" name="email" value="{{ $user->email }}">
-        </div>
-
-        <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-select" id="role" name="role" required>
-                <option selected disabled value="">Choose one...</option>
-                @foreach($roles as $roleOption)
-                    <option value="{{ $roleOption->role }}" @if($user->role == $roleOption->role) selected @endif>{{ ucfirst($roleOption->role) }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="client_id" class="form-label">Client</label>
-            <select class="form-select" id="client_id" name="client_id">
-                <option value="">None</option>
-                @foreach($clients as $client)
-                    <option value="{{ $client->id }}" @if($user->client_id == $client->id) selected @endif>{{ $client->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="employee_id" class="form-label">Employee</label>
-            <select class="form-select" id="employee_id" name="employee_id">
-                <option value="">None</option>
-                @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}" @if($user->employee_id == $employee->id) selected @endif>{{ $employee->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('users.index') }}" class="btn btn-warning">Cancel</a>
-        </div>
-    </form>
-</div>
+    </div>
+</x-app-layout>

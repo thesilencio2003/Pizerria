@@ -11,7 +11,8 @@
                 </div>
 
                 <!-- Navigation Links -->
-            @if(Auth::user()->role === 'admin' || Auth::user()->role === 'cliente')
+            
+            @if(in_array(Auth::user()->role, ['admin', 'cliente', 'vendedor', 'cajero']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -20,7 +21,7 @@
             @endif
 
             
-            @if(in_array(Auth::user()->role, ['admin', 'cliente']))
+            @if(in_array(Auth::user()->role, ['admin']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('users') }}
@@ -28,7 +29,7 @@
                 </div>
             @endif
 
-            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cliente']))
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.index')">
                         {{ __('clients') }}
@@ -44,7 +45,7 @@
                 </div>
             @endif
                 
-            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'secretaria' , 'cliente']))
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                    <x-nav-link :href="route('extra_ingredients.index')" :active="request()->routeIs('extra_ingredients.index')">
                     {{ __('Extra Ingredients') }}
@@ -85,7 +86,7 @@
                 </div>
             @endif    
 
-            @if(Auth::user()->role === 'admin')    
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor']))    
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('ingredents.index')" :active="request()->routeIs('ingredents.index')">
                         {{ __('ingredients') }}
@@ -94,7 +95,7 @@
             @endif    
 
             
-            @if(in_array(Auth::user()->role, ['admin' , 'cliente']))
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero ' , 'cliente']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('piza_size.index')" :active="request()->routeIs('piza_size.index')">
                         {{ __('piza_size') }}
@@ -102,7 +103,7 @@
                 </div>
             @endif    
 
-            @if(Auth::user()->role === 'admin')
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero ']))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('pizza_ingredient.index')" :active="request()->routeIs('pizza_ingredient.index')">
                         {{ __('pizza_ingredient') }}
@@ -110,7 +111,7 @@
                 </div>
             @endif
 
-            @if(in_array(Auth::user()->role, ['admin', 'secretaria' , 'cliente']))   
+            @if(in_array(Auth::user()->role, ['admin' , 'cliente']))   
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.index')">
                         {{ __('branches') }}

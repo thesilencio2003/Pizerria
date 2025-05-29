@@ -143,6 +143,14 @@
                 </div>
             @endif
 
+            @if(in_array(Auth::user()->role, ['admin', 'vendedor', 'cajero ']))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('order_extra_ingredient.index')" :active="request()->routeIs('order_extra_ingredient.index')">
+                        {{ __('order_extra_ingredient') }}
+                    </x-nav-link>
+                </div>
+            @endif
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
                 </div>

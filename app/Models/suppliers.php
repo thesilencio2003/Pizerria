@@ -12,5 +12,7 @@ class suppliers extends Model
     protected $table = 'suppliers'; 
     protected $primaryKey = 'id'; 
     public $timestamps = false; 
+    protected $fillable = [
+        ];
 
 }

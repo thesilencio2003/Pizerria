@@ -9,8 +9,7 @@ use App\Http\Controllers\api\PizzaIngredientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\UserController;
-use App\Http\Controllers\api\OrderController;
-use App\Http\Controllers\api\OrderPizzaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,17 +67,3 @@ Route::get('/extra-ingredients', [ExtraIngredientController::class, 'index'])->n
 Route::get('/extra-ingredients/{id}', [ExtraIngredientController::class, 'show'])->name('extra_ingredients.show');
 Route::put('/extra-ingredients/{id}', [ExtraIngredientController::class, 'update'])->name('extra_ingredients.update');
 Route::delete('/extra-ingredients/{id}', [ExtraIngredientController::class, 'destroy'])->name('extra_ingredients.destroy');
-
-Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
-Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
-Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('orders.destroy');
-Route::put('/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
-Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-
-Route::get('/order_pizza', [OrderPizzaController::class, 'index'])->name('order_pizza.index');
-Route::post('/order_pizza', [OrderPizzaController::class, 'store'])->name('order_pizza.store');
-Route::get('/order_pizza/create', [OrderPizzaController::class, 'create'])->name('order_pizza.create');
-Route::delete('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'destroy'])->name('order_pizza.destroy');
-Route::put('/order_pizza/{orderPizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
-Route::get('/order_pizza/{orderPizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');

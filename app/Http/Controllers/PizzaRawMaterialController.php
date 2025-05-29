@@ -27,7 +27,7 @@ class PizzaRawMaterialController extends Controller
     
     public function create()
     {
-        $pizzas = DB::table('pizzas')
+        $pizza = DB::table('pizzas')
         ->orderBy('name')
         ->get();
 
@@ -36,7 +36,7 @@ class PizzaRawMaterialController extends Controller
             ->get();
 
         return view('pizza_raw_material.new', [
-            'pizzas' => $pizzas,
+            'pizzas' => $pizza,
             'rawMaterials' => $rawMaterials
         ]);
     }
@@ -74,7 +74,7 @@ class PizzaRawMaterialController extends Controller
     {
         $ingredient = PizzaRawMaterial::find($id);
 
-        $pizzas = DB::table('pizzas')
+        $pizza = DB::table('pizzas')
             ->orderBy('name')
             ->get();
 
@@ -84,7 +84,7 @@ class PizzaRawMaterialController extends Controller
 
         return view('pizza_raw_material.edit', [
             'ingredient' => $ingredient,
-            'pizzas' => $pizzas,
+            'pizzas' => $pizza,
             'rawMaterials' => $rawMaterials
         ]);
     }

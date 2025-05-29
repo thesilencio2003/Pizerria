@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BranchApiController;
 use App\Http\Controllers\api\PizzaApiRawMaterial;
 use App\Http\Controllers\Api\PurchasesApiController;
+use App\Http\Controllers\Api\RawApiController;
+
+
 
 
 /*
@@ -31,3 +34,10 @@ Route::get('/pizza-raw-materials', [PizzaApiRawMaterial::class, 'index']);
 
 //Purchases Routes
 Route::apiResource('purchases', PurchasesApiController::class);
+
+//Raw-materials 
+Route::get('/raw-materials', [RawApiController::class, 'index']);
+Route::get('/raw-materials/{id}', [RawApiController::class, 'show']);
+Route::post('/raw-materials', [RawApiController::class, 'store']);
+Route::put('/raw-materials/{id}', [RawApiController::class, 'update']);
+Route::delete('/raw-materials/{id}', [RawApiController::class, 'destroy']);
